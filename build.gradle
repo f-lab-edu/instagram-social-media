@@ -1,0 +1,58 @@
+/*
+    Gradle
+    그루비를 이용한 빌드 자동화 시스템이다. 그루비는 java Virtual machine에서 실행하는 스크립트 언어이다. maven의 빌드 툴이 있지만
+    Gradle을 선택 한 이유는 두 가지 이유다.
+    1. maven 보다 코드가 간결하여 가독성 향상
+    2. build cache로 빌드 타임이 maven 보다 감소
+
+    java8 버전 선택
+    * 컨텐츠의 데이터를 Stream api, lambda를 이용하여 데이터 처리 파이프라인을 구축하고 함수형 프로그래밍 구현
+
+    lombok
+    * getter, setter, toString을 지원
+
+    JPA
+    DB 테이블과 자바 객체 사이에 매핑을 처리해주는 ORM 기술.
+    JPA를 도입한 이유
+    1. 캐싱 기능, 쓰기 지연을 제공하여 성능을 향상 시킬 수 있다.
+    2. 도메인 기반의 프로그래밍으로 비즈니스 로직을 구현하는데 집중
+
+*/
+
+plugins {
+    id 'org.springframework.boot' version '2.3.4.RELEASE'
+    id 'io.spring.dependency-management' version '1.0.10.RELEASE'
+    id 'java'
+}
+
+group = 'com.social.instagram'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '1.8'
+
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    compileOnly 'org.projectlombok:lombok'
+    runtimeOnly 'mysql:mysql-connector-java'
+    annotationProcessor 'org.projectlombok:lombok'
+    testImplementation('org.springframework.boot:spring-boot-starter-test') {
+        exclude module: 'junit'
+    }
+    testImplementation('org.junit.jupiter:junit-jupiter-api:5.2.0')
+    testCompile('org.junit.jupiter:junit-jupiter-params:5.2.0')
+    testRuntime('org.junit.jupiter:junit-jupiter-engine:5.2.0')
+}
+
+test {
+    useJUnitPlatform()
+}
