@@ -1,11 +1,12 @@
 package com.social.instagram.domain;
 
 import com.social.instagram.dto.AccountDto;
-import com.social.instagram.util.PasswordEncodingUtil;
+import com.social.instagram.util.encoding.EncryptionUtil;
+import com.social.instagram.util.encoding.Sha256Util;
+import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.ToString;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -19,7 +20,7 @@ import javax.persistence.Id;
     기본 생성자를 자동으로 생성
 */
 @Entity
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 public class Account {
 
@@ -52,11 +53,12 @@ public class Account {
         this.phone = phone;
     }
 
-    public static Account changeAccountEntity(AccountDto account) {
+    public static Account changeAccountEntity(AccountDto account, EncryptionUtil plainText) {
+
         return Account.builder()
                 .userId(account.getUserId())
                 .name(account.getName())
-                .password(PasswordEncodingUtil.changePasswordEncoding(account.getPassword()))
+                .password(plainText.changeEncoding(account.getPassword()))
                 .email(account.getEmail())
                 .phone(account.getPhone())
                 .build();

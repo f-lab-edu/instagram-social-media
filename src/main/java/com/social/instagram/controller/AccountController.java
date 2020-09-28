@@ -2,15 +2,16 @@ package com.social.instagram.controller;
 
 import com.social.instagram.domain.Account;
 import com.social.instagram.dto.AccountDto;
+import com.social.instagram.factory.EncryptionFactory;
 import com.social.instagram.service.AccountService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import javax.validation.Valid;
+import static com.social.instagram.util.httpstatus.ResponseContents.*;
 
 
 /*
@@ -28,11 +29,12 @@ public class AccountController {
 
     private final AccountService accountService;
 
-    @PostMapping("register")
+    @PostMapping("sign-up")
     public ResponseEntity<Void> accountRegister(@Valid @RequestBody AccountDto account) {
-        accountService.accountRegister(Account.changeAccountEntity(account));
+        EncryptionFactory encryptionFactory = new EncryptionFactory();
+        accountService.accountRegister(Account.changeAccountEntity(account, encryptionFactory.sha256Util()));
 
-        return new ResponseEntity<>(HttpStatus.CREATED);
+        return RESPONSE_ENTITY;
     }
 
 }
