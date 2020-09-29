@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import javax.validation.Valid;
-import static com.social.instagram.util.httpstatus.ResponseContents.*;
+import static com.social.instagram.util.httpstatus.ResponseSuccessContents.*;
 
 
 /*
@@ -28,13 +28,13 @@ import static com.social.instagram.util.httpstatus.ResponseContents.*;
 public class AccountController {
 
     private final AccountService accountService;
+    private final EncryptionFactory encryptionFactory;
 
     @PostMapping("sign-up")
     public ResponseEntity<Void> accountRegister(@Valid @RequestBody AccountDto account) {
-        EncryptionFactory encryptionFactory = new EncryptionFactory();
         accountService.accountRegister(Account.changeAccountEntity(account, encryptionFactory.sha256Util()));
 
-        return RESPONSE_ENTITY;
+        return RESPONSE_ENTITY_CREATE;
     }
 
 }
