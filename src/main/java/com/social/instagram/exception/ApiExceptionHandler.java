@@ -21,4 +21,9 @@ public class ApiExceptionHandler {
         return RESPONSE_USER_ID_BAD_REQUEST;
     }
 
+    @ExceptionHandler(NotUserDataException.class)
+    public ResponseEntity<String> handleNotUserDataException() {
+        return RESPONSE_NOT_USER_DATA_BAD_REQUEST;
+    }
+
 }
