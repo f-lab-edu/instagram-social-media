@@ -42,7 +42,8 @@ public class Sha256Util implements EncryptionUtil {
             StringBuilder encryptBuilder = new StringBuilder();
 
             for (byte digestByte : digest) {
-                encryptBuilder.append(Integer.toString((digestByte & 0xFF) + SHA_256, HEXA_DECIMAL).substring(DIGEST_BYTE_EXTRACT));
+                encryptBuilder.append(Integer.toString((digestByte & 0xFF) + SHA_256, HEXA_DECIMAL)
+                        .substring(DIGEST_BYTE_EXTRACT));
             }
 
          return encryptBuilder.toString();

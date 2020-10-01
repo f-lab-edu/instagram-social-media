@@ -2,7 +2,6 @@ package com.social.instagram.domain;
 
 import com.social.instagram.dto.AccountDto;
 import com.social.instagram.util.encoding.EncryptionUtil;
-import com.social.instagram.util.encoding.Sha256Util;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
