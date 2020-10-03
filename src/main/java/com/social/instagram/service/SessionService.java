@@ -4,14 +4,22 @@ import com.social.instagram.domain.Account;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpSession;
+
+import static com.social.instagram.util.session.SessionKeyConstants.ACCOUNT;
+
 @Service
 @RequiredArgsConstructor
 public class SessionService {
 
-    private final AccountService accountService;
+    private final HttpSession session;
 
-    public Account getAccount(String userId) {
-        return accountService.getAccount(userId);
+    public void createAccountSession(Account account) {
+        session.setAttribute(ACCOUNT, account);
+    }
+
+    public void removeAccountSession() {
+        session.removeAttribute(ACCOUNT);
     }
 
 }

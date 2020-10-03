@@ -25,7 +25,7 @@ public class AccountService {
         }
     }
 
-    public void hasAccount(String userId, String password) {
+    public void checkHasAccount(String userId, String password) {
         if (!accountRepository.existsFindByUserIdAndPassword(userId, password)) {
             throw new NotUserDataException();
         }

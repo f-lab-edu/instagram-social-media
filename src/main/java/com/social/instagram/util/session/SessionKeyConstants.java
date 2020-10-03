@@ -1,6 +1,6 @@
 package com.social.instagram.util.session;
 
-public class SessionNameConstants {
+public class SessionKeyConstants {
 
     public static final String ACCOUNT = "account";
 
