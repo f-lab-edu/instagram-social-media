@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import javax.validation.Valid;
-import static com.social.instagram.util.httpstatus.ResponseBodyNoExistenceConstants.RESPONSE_ENTITY_CREATE;
+import static com.social.instagram.util.httpstatus.ResponseConstants.RESPONSE_ENTITY_CREATE;
 
 
 /*

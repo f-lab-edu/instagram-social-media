@@ -3,7 +3,7 @@ package com.social.instagram.exception;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import static com.social.instagram.util.httpstatus.ResponseBodyExistenceConstants.RESPONSE_USER_ID_BAD_REQUEST;
+import static com.social.instagram.util.httpstatus.ResponseConstants.RESPONSE_USER_ID_BAD_REQUEST;
 
 /*
     @ControllerAdvice
