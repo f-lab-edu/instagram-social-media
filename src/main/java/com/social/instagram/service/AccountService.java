@@ -14,18 +14,18 @@ public class AccountService {
     private final AccountRepository accountRepository;
 
     public void accountRegister(Account account) {
-        checkDuplicateUserId(account.getUserId());
+        validateDuplicateUserId(account.getUserId());
 
         accountRepository.save(account);
     }
 
-    public void checkDuplicateUserId(String userId) {
+    public void validateDuplicateUserId(String userId) {
         if (accountRepository.existsByUserId(userId)) {
             throw new DuplicateUserIdException();
         }
     }
 
-    public void checkHasAccount(String userId, String password) {
+    public void validateHasAccount(String userId, String password) {
         if (!accountRepository.existsFindByUserIdAndPassword(userId, password)) {
             throw new NotUserDataException();
         }

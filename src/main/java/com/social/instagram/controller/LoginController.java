@@ -27,9 +27,9 @@ public class LoginController {
         String userId = loginDto.getUserId();
         String password = encryptionFactory.sha256Util().changeEncoding(loginDto.getPassword());
 
-        accountService.checkHasAccount(userId, password);
+        accountService.validateHasAccount(userId, password);
 
-        sessionService.createAccountSession(accountService.getAccount(userId));
+        sessionService.createUserIdSession(userId);
 
         return RESPONSE_ENTITY_OK;
     }
