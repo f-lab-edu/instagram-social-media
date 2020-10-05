@@ -22,6 +22,7 @@ import java.util.List;
 public class ErrorMessage {
 
     private final List<FieldError> errorMessage;
+    private static final String LINE_BREAK = "\n";
 
     public ErrorMessage(List<FieldError> errorMessage) {
         this.errorMessage = errorMessage;
@@ -31,7 +32,7 @@ public class ErrorMessage {
         StringBuilder errorResult = new StringBuilder();
 
         for (FieldError fieldError : errorMessage) {
-            errorResult.append(fieldError.getDefaultMessage()).append("\n");
+            errorResult.append(fieldError.getDefaultMessage()).append(LINE_BREAK);
         }
 
         return errorResult.toString();
