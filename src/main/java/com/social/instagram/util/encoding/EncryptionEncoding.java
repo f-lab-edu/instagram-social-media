@@ -1,6 +1,6 @@
 package com.social.instagram.util.encoding;
 
-public interface EncryptionUtil {
+public interface EncryptionEncoding {
 
     String changeEncoding(String plainText);
 }

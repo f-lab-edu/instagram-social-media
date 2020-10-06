@@ -4,12 +4,14 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Random;
 
-public class Sha256Util implements EncryptionUtil {
+import static com.social.instagram.util.encoding.EncodingConstants.HEXA_TWO_OUTPUT;
+import static com.social.instagram.util.encoding.EncodingConstants.SALT_LENGTH;
+import static com.social.instagram.util.encoding.EncodingConstants.SHA_256_ALGORITHM;
+import static com.social.instagram.util.encoding.EncodingConstants.SHA_256_CONSTANTS;
+import static com.social.instagram.util.encoding.EncodingConstants.HEXA_DECIMAL;
+import static com.social.instagram.util.encoding.EncodingConstants.DIGEST_BYTE_EXTRACT;
 
-    private static final int SALT_LENGTH = 10;
-    private static final int SHA_256 = 256;
-    private static final int HEXA_DECIMAL = 16;
-    private static final int DIGEST_BYTE_EXTRACT = 1;
+public class Sha256Encoding implements EncryptionEncoding {
 
     private static String getSalt() {
         Random random = new Random();
@@ -20,7 +22,7 @@ public class Sha256Util implements EncryptionUtil {
         StringBuilder saltBuilder = new StringBuilder();
 
         for (byte saltByte : salt) {
-            saltBuilder.append(String.format("%02x", saltByte));
+            saltBuilder.append(String.format(HEXA_TWO_OUTPUT, saltByte));
         }
 
         return saltBuilder.toString();
@@ -34,7 +36,7 @@ public class Sha256Util implements EncryptionUtil {
         byte[] sumPasswordAndSaltBytes = new byte[passwordByte.length + saltBytes.length];
 
         try {
-            MessageDigest messageDigest = MessageDigest.getInstance("SHA-256");
+            MessageDigest messageDigest = MessageDigest.getInstance(SHA_256_ALGORITHM);
             messageDigest.update(sumPasswordAndSaltBytes);
 
             byte[] digest = messageDigest.digest();
@@ -42,7 +44,7 @@ public class Sha256Util implements EncryptionUtil {
             StringBuilder encryptBuilder = new StringBuilder();
 
             for (byte digestByte : digest) {
-                encryptBuilder.append(Integer.toString((digestByte & 0xFF) + SHA_256, HEXA_DECIMAL)
+                encryptBuilder.append(Integer.toString((digestByte & 0xFF) + SHA_256_CONSTANTS, HEXA_DECIMAL)
                         .substring(DIGEST_BYTE_EXTRACT));
             }
 

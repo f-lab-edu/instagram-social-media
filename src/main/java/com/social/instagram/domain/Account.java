@@ -1,7 +1,7 @@
 package com.social.instagram.domain;
 
 import com.social.instagram.dto.AccountDto;
-import com.social.instagram.util.encoding.EncryptionUtil;
+import com.social.instagram.util.encoding.EncryptionEncoding;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -52,7 +52,7 @@ public class Account {
         this.phone = phone;
     }
 
-    public static Account changeAccountEntity(AccountDto account, EncryptionUtil plainText) {
+    public static Account changeAccountEntity(AccountDto account, EncryptionEncoding plainText) {
 
         return Account.builder()
                 .userId(account.getUserId())

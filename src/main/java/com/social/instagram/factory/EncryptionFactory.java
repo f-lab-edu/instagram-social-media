@@ -1,6 +1,6 @@
 package com.social.instagram.factory;
 
-import com.social.instagram.util.encoding.Sha256Util;
+import com.social.instagram.util.encoding.Sha256Encoding;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -16,8 +16,8 @@ public class EncryptionFactory {
         스프링 컨테이너에 의해 관리되는 객체
     */
     @Bean
-    public Sha256Util sha256Util() {
-        return new Sha256Util();
+    public Sha256Encoding sha256Util() {
+        return new Sha256Encoding();
     }
 
 }
