@@ -4,14 +4,14 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Random;
 
-import static com.social.instagram.util.encoding.EncodingConstants.HEXA_TWO_OUTPUT;
-import static com.social.instagram.util.encoding.EncodingConstants.SALT_LENGTH;
-import static com.social.instagram.util.encoding.EncodingConstants.SHA_256_ALGORITHM;
-import static com.social.instagram.util.encoding.EncodingConstants.SHA_256_CONSTANTS;
-import static com.social.instagram.util.encoding.EncodingConstants.HEXA_DECIMAL;
-import static com.social.instagram.util.encoding.EncodingConstants.DIGEST_BYTE_EXTRACT;
+import static com.social.instagram.util.encoding.EncryptionConstants.HEXA_TWO_OUTPUT;
+import static com.social.instagram.util.encoding.EncryptionConstants.SALT_LENGTH;
+import static com.social.instagram.util.encoding.EncryptionConstants.SHA_256_ALGORITHM;
+import static com.social.instagram.util.encoding.EncryptionConstants.SHA_256_CONSTANTS;
+import static com.social.instagram.util.encoding.EncryptionConstants.HEXA_DECIMAL;
+import static com.social.instagram.util.encoding.EncryptionConstants.DIGEST_BYTE_EXTRACT;
 
-public class Sha256Encoding implements EncryptionEncoding {
+public class Sha256Encryption implements Encryption {
 
     private static String getSalt() {
         Random random = new Random();

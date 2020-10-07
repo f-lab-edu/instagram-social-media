@@ -1,6 +1,6 @@
 package com.social.instagram.util.encoding;
 
-public class EncodingConstants {
+public class EncryptionConstants {
 
     public static final int SALT_LENGTH = 10;
 
