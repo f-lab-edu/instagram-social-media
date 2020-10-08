@@ -1,0 +1,25 @@
+spring:
+
+  #데이터베이스 연결해주는 설정
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/instagram?serverTimezone=UTC&characterEncoding=UTF-8
+    username: root
+    password: password
+
+  jpa:
+    properties:
+      hibernate:
+        #hibernate가 DB에 날리는 모든 쿼리 출력
+        show_sql: true
+        #보여지는 쿼리를 이쁘게 출력
+        format_sql: true
+
+#hibernate가 ?에 어떤값이 들어가 있는지 구체적으로 알려주는 설정
+logging:
+  level:
+    org:
+      hibernate:
+        type:
+          descriptor:
+            sql: trace

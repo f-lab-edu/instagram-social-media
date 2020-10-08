@@ -1,0 +1,6 @@
+# 로컬/운영 환경설정을 분리하는 작업
+spring:
+  profiles:
+    active: local
+
+---
