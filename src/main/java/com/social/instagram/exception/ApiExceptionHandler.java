@@ -28,12 +28,12 @@ public class ApiExceptionHandler {
     @ExceptionHandler(NotUserDataException.class)
     public ResponseEntity<String> handleNotUserDataException() {
         return RESPONSE_NOT_USER_DATA_BAD_REQUEST;
+    }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<String> handleMethodArgumentNotValidException(MethodArgumentNotValidException exception) {
         ErrorMessage errorMessage = new ErrorMessage(exception.getBindingResult().getFieldErrors());
         return new ResponseEntity<>(errorMessage.getErrorMessage(), HttpStatus.BAD_REQUEST);
-
     }
 
 }
