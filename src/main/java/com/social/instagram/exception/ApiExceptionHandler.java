@@ -1,10 +1,13 @@
 package com.social.instagram.exception;
 
+import com.social.instagram.validation.ErrorMessage;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import static com.social.instagram.util.httpstatus.ResponseErrorContents.RESPONSE_USER_ID_BAD_REQUEST;
-import static com.social.instagram.util.httpstatus.ResponseErrorContents.RESPONSE_NOT_USER_DATA_BAD_REQUEST;
+import static com.social.instagram.util.httpstatus.ResponseConstants.RESPONSE_USER_ID_BAD_REQUEST;
+import static com.social.instagram.util.httpstatus.ResponseConstants.RESPONSE_NOT_USER_DATA_BAD_REQUEST;
 
 /*
     @ControllerAdvice
@@ -25,6 +28,12 @@ public class ApiExceptionHandler {
     @ExceptionHandler(NotUserDataException.class)
     public ResponseEntity<String> handleNotUserDataException() {
         return RESPONSE_NOT_USER_DATA_BAD_REQUEST;
+
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public ResponseEntity<String> handleMethodArgumentNotValidException(MethodArgumentNotValidException exception) {
+        ErrorMessage errorMessage = new ErrorMessage(exception.getBindingResult().getFieldErrors());
+        return new ResponseEntity<>(errorMessage.getErrorMessage(), HttpStatus.BAD_REQUEST);
+
     }
 
 }
