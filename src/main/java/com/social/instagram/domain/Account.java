@@ -51,7 +51,7 @@ public class Account {
         this.email = email;
         this.phone = phone;
     }
-
+  
     public static Account changeAccountEntity(AccountDto account, Encryption plainText) {
 
         return Account.builder()

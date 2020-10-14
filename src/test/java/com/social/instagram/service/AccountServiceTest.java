@@ -44,7 +44,7 @@ class AccountServiceTest {
         when(accountRepository.existsByUserId("test")).thenReturn(true);
 
         assertThrows(DuplicateUserIdException.class,
-                () -> accountService.checkDuplicateUserId("test"));
+                () -> accountService.validateDuplicateUserId("test"));
 
         verify(accountRepository).existsByUserId("test");
     }
