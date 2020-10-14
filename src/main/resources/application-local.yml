@@ -15,6 +15,10 @@ spring:
         #보여지는 쿼리를 이쁘게 출력
         format_sql: true
 
+  redis:
+    host: 127.0.0.1
+    port: 6379
+
 #hibernate가 ?에 어떤값이 들어가 있는지 구체적으로 알려주는 설정
 logging:
   level:

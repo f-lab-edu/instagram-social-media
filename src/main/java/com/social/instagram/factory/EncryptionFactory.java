@@ -16,7 +16,7 @@ public class EncryptionFactory {
         스프링 컨테이너에 의해 관리되는 객체
     */
     @Bean
-    public Sha256Encryption sha256Util() {
+    public Sha256Encryption sha256Encryption() {
         return new Sha256Encryption();
     }
 

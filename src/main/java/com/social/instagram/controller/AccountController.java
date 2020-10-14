@@ -34,7 +34,7 @@ public class AccountController {
 
     @PostMapping("sign-up")
     public ResponseEntity<Void> accountRegister(@Valid @RequestBody AccountDto account) {
-        accountService.accountRegister(Account.changeAccountEntity(account, encryptionFactory.sha256Util()));
+        accountService.accountRegister(Account.changeAccountEntity(account, encryptionFactory.sha256Encryption()));
 
         return RESPONSE_ENTITY_CREATE;
     }
