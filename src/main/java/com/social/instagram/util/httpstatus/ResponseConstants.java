@@ -17,4 +17,7 @@ public class ResponseConstants {
     public static final ResponseEntity<String> RESPONSE_NOT_USER_DATA_BAD_REQUEST =
             ResponseEntity.badRequest().body("입력된 이메일과 일치하는 계정이 없습니다.");
 
+    public static final ResponseEntity<String> RESPONSE_UNAUTHORIZED =
+            new ResponseEntity<>("Session 정보가 존재하지 않습니다", HttpStatus.UNAUTHORIZED);
+
 }
