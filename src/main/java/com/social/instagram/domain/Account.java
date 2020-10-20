@@ -19,8 +19,8 @@ import javax.persistence.Id;
     기본 생성자를 자동으로 생성
 */
 @Entity
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Account {
 
     /*

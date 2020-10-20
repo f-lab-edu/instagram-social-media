@@ -25,7 +25,7 @@ public class LoginController {
     @PostMapping("/login")
     public ResponseEntity<Void> accountLogin(@Valid @RequestBody LoginDto loginDto) {
         String userId = loginDto.getUserId();
-        String password = encryptionFactory.sha256Util().changeEncoding(loginDto.getPassword());
+        String password = encryptionFactory.sha256Encryption().changeEncoding(loginDto.getPassword());
 
         accountService.validateHasAccount(userId, password);
 
