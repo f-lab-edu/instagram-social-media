@@ -20,8 +20,8 @@ public class SessionAspect {
     private final SessionService sessionService;
 
     @Before("@annotation(com.social.instagram.annotation.SessionValidation)")
-    public void validateHasSession() {
-        sessionService.validateHasSession();
+    public void validateUserId() {
+        sessionService.validateUserId();
     }
 
 }
