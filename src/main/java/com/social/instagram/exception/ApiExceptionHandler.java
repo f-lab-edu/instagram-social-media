@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import static com.social.instagram.util.httpstatus.ResponseConstants.RESPONSE_USER_ID_BAD_REQUEST;
 import static com.social.instagram.util.httpstatus.ResponseConstants.RESPONSE_NOT_USER_DATA_BAD_REQUEST;
-import static com.social.instagram.util.httpstatus.ResponseConstants.RESPONSE_UNAUTHORIZED;
+import static com.social.instagram.util.httpstatus.ResponseConstants.RESPONSE_SESSION_USER_ID_UNAUTHORIZED;
 
 /*
     @ControllerAdvice
@@ -40,7 +40,7 @@ public class ApiExceptionHandler {
 
     @ExceptionHandler(SessionNotFoundException.class)
     public ResponseEntity<String> handleSessionNotFoundException() {
-        return RESPONSE_UNAUTHORIZED;
+        return RESPONSE_SESSION_USER_ID_UNAUTHORIZED;
     }
 
 }

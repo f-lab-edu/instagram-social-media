@@ -1,12 +1,9 @@
 package com.social.instagram.service;
 
-import com.social.instagram.exception.SessionNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpSession;
-
-import java.util.Optional;
 
 import static com.social.instagram.util.session.SessionKeyConstants.USER_ID;
 
@@ -38,11 +35,6 @@ public class SessionService {
 
     public String getUserId() {
         return (String) session.getAttribute(USER_ID);
-    }
-
-    public void validateUserId() {
-        Optional.ofNullable(getUserId())
-                .orElseThrow(SessionNotFoundException::new);
     }
 
 }
