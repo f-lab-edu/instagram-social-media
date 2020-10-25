@@ -23,7 +23,7 @@ public class LoginController {
     private final AccountService accountService;
 
     @PostMapping("/login")
-    public ResponseEntity<Void> accountLogin(@Valid @RequestBody LoginDto loginDto) {
+    public ResponseEntity<Void> login(@Valid @RequestBody LoginDto loginDto) {
         String userId = loginDto.getUserId();
         String password = encryptionFactory.sha256Encryption().changeEncoding(loginDto.getPassword());
 
@@ -35,7 +35,7 @@ public class LoginController {
     }
 
     @PostMapping("/logout")
-    public ResponseEntity<Void> accountLogout() {
+    public ResponseEntity<Void> logout() {
         sessionService.removeUserId();
 
         return RESPONSE_ENTITY_OK;
