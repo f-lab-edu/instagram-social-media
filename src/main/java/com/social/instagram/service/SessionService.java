@@ -25,12 +25,16 @@ public class SessionService {
 
     private final HttpSession session;
 
-    public void createUserIdSession(String userId) {
+    public void createUserId(String userId) {
         session.setAttribute(USER_ID, userId);
     }
 
-    public void removeAccountSession() {
+    public void removeUserId() {
         session.removeAttribute(USER_ID);
+    }
+
+    public String getUserId() {
+        return (String) session.getAttribute(USER_ID);
     }
 
 }

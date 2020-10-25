@@ -29,14 +29,14 @@ public class LoginController {
 
         accountService.validateHasAccount(userId, password);
 
-        sessionService.createUserIdSession(userId);
+        sessionService.createUserId(userId);
 
         return RESPONSE_ENTITY_OK;
     }
 
     @PostMapping("/logout")
     public ResponseEntity<Void> accountLogout() {
-        sessionService.removeAccountSession();
+        sessionService.removeUserId();
 
         return RESPONSE_ENTITY_OK;
     }

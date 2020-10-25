@@ -1,8 +1,8 @@
 package com.social.instagram.service;
 
 import com.social.instagram.domain.Account;
-import com.social.instagram.exception.DuplicateUserIdException;
-import com.social.instagram.exception.NotUserDataException;
+import com.social.instagram.exception.UserIdDuplicatedException;
+import com.social.instagram.exception.UserNotAccountException;
 import com.social.instagram.repository.AccountRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -21,18 +21,14 @@ public class AccountService {
 
     public void validateDuplicateUserId(String userId) {
         if (accountRepository.existsByUserId(userId)) {
-            throw new DuplicateUserIdException();
+            throw new UserIdDuplicatedException();
         }
     }
 
     public void validateHasAccount(String userId, String password) {
         if (!accountRepository.existsFindByUserIdAndPassword(userId, password)) {
-            throw new NotUserDataException();
+            throw new UserNotAccountException();
         }
-    }
-
-    public Account getAccount(String userId) {
-        return accountRepository.findByUserId(userId);
     }
   
 }
