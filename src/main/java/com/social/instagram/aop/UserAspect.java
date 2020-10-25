@@ -1,6 +1,6 @@
 package com.social.instagram.aop;
 
-import com.social.instagram.exception.SessionNotFoundException;
+import com.social.instagram.exception.UserNotLoginException;
 import com.social.instagram.service.SessionService;
 import lombok.RequiredArgsConstructor;
 import org.aspectj.lang.annotation.Aspect;
@@ -18,14 +18,14 @@ import java.util.Optional;
 @Configuration
 @Aspect
 @RequiredArgsConstructor
-public class SessionAspect {
+public class UserAspect {
 
     private final SessionService sessionService;
 
-    @Before("@annotation(com.social.instagram.annotation.SessionValidation)")
-    public void validateUserIdExpiration() {
+    @Before("@annotation(com.social.instagram.annotation.LoginValidation)")
+    public void validateLogin() {
         Optional.ofNullable(sessionService.getUserId())
-                .orElseThrow(SessionNotFoundException::new);
+                .orElseThrow(UserNotLoginException::new);
     }
 
 }

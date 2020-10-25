@@ -14,10 +14,10 @@ public class ResponseConstants {
     public static final ResponseEntity<String> RESPONSE_USER_ID_BAD_REQUEST =
             ResponseEntity.badRequest().body("중복된 userId 입니다");
 
-    public static final ResponseEntity<String> RESPONSE_NOT_USER_DATA_BAD_REQUEST =
+    public static final ResponseEntity<String> RESPONSE_USER_ACCOUNT_BAD_REQUEST =
             ResponseEntity.badRequest().body("입력된 이메일과 일치하는 계정이 없습니다");
 
-    public static final ResponseEntity<String> RESPONSE_SESSION_USER_ID_UNAUTHORIZED =
-            new ResponseEntity<>("세션이 만료되어 다시 로그인 해주세요", HttpStatus.UNAUTHORIZED);
+    public static final ResponseEntity<String> RESPONSE_USER_UNAUTHORIZED =
+            new ResponseEntity<>("유저에 대한 정보를 찾지 못했습니다. 로그인을 해주세요", HttpStatus.UNAUTHORIZED);
 
 }

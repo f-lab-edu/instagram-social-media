@@ -1,7 +1,7 @@
 package com.social.instagram.service;
 
 import com.social.instagram.domain.Account;
-import com.social.instagram.exception.DuplicateUserIdException;
+import com.social.instagram.exception.UserIdDuplicatedException;
 import com.social.instagram.repository.AccountRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -43,7 +43,7 @@ class AccountServiceTest {
     public void account_register_duplicate_userId_fail() {
         when(accountRepository.existsByUserId("test")).thenReturn(true);
 
-        assertThrows(DuplicateUserIdException.class,
+        assertThrows(UserIdDuplicatedException.class,
                 () -> accountService.validateDuplicateUserId("test"));
 
         verify(accountRepository).existsByUserId("test");
