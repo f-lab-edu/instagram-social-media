@@ -43,6 +43,8 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.boot:spring-boot-starter-validation'
+    compile group: 'com.amazonaws', name: 'aws-java-sdk-bom', version: '1.11.822', ext: 'pom'
+    compile group: 'com.amazonaws', name: 'aws-java-sdk-s3', version: '1.11.882'
     compile 'org.springframework.boot:spring-boot-starter-aop'
     compile 'org.springframework.session:spring-session-data-redis'
     compile 'org.springframework.boot:spring-boot-starter-data-redis'
