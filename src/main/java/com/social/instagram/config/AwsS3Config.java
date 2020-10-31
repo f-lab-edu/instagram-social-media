@@ -10,10 +10,6 @@ import org.springframework.context.annotation.Configuration;
 
 import javax.annotation.PostConstruct;
 
-/*
-    @PropertySource
-    외부 환경 변수의 경로를 지정하고 외부 환경 변수의 값을 @Value에 주입하여 사용 할 수 있다.
-*/
 @Configuration
 public class AwsS3Config {
 
