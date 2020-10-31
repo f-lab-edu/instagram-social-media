@@ -25,7 +25,7 @@ gradlew.bat
 out/
 !**/src/main/**/out/
 !**/src/test/**/out/
-application-aws.properties
+application-aws.yml
 
 ### NetBeans ###
 /nbproject/private/
