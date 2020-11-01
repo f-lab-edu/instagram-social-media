@@ -53,7 +53,6 @@ public class Account {
     }
   
     public static Account changeAccountEntity(AccountDto account, Encryption plainText) {
-
         return Account.builder()
                 .userId(account.getUserId())
                 .name(account.getName())
