@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import static com.social.instagram.util.httpstatus.ResponseConstants.RESPONSE_USER_ID_BAD_REQUEST;
 import static com.social.instagram.util.httpstatus.ResponseConstants.RESPONSE_USER_ACCOUNT_BAD_REQUEST;
 import static com.social.instagram.util.httpstatus.ResponseConstants.RESPONSE_USER_UNAUTHORIZED;
+import static com.social.instagram.util.httpstatus.ResponseConstants.RESPONSE_AWS_S3_FILE_NOT_UPLOAD;
 
 /*
     @ControllerAdvice
@@ -41,6 +42,11 @@ public class ApiExceptionHandler {
     @ExceptionHandler(UserNotLoginException.class)
     public ResponseEntity<String> handleSessionNotFoundException() {
         return RESPONSE_USER_UNAUTHORIZED;
+    }
+
+    @ExceptionHandler(AwsS3FileNotUploadException.class)
+    public ResponseEntity<String> handleAwsS3FileNotUploadException() {
+        return RESPONSE_AWS_S3_FILE_NOT_UPLOAD;
     }
 
 }
