@@ -8,7 +8,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 @Service
 @RequiredArgsConstructor
-public class AwsS3LocalService {
+public class AwsS3LocalService implements AwsS3Service {
 
     private final AwsS3Connector awsS3Connector;
 

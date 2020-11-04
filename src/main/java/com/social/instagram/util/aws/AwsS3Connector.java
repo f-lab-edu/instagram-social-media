@@ -5,6 +5,7 @@ import com.amazonaws.services.s3.model.CannedAccessControlList;
 import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.amazonaws.services.s3.model.PutObjectRequest;
 import com.social.instagram.exception.AwsS3FileNotUploadException;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.multipart.MultipartFile;
@@ -18,16 +19,13 @@ import java.io.InputStream;
     Ioexception을 처리해줘야 하는데 try-with-resources를 사용하여 자원 해제 처리를 자동으로 종료 할 수 있게 구현했다.
 */
 @Configuration
+@RequiredArgsConstructor
 public class AwsS3Connector {
 
     private final AmazonS3 amazonS3Client;
 
     @Value("${aws.s3.bucket}")
     private String bucket;
-
-    public AwsS3Connector(AmazonS3 amazonS3Client) {
-        this.amazonS3Client = amazonS3Client;
-    }
 
     public void upload(MultipartFile file){
         try(InputStream inputStream = file.getInputStream()) {
