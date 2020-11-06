@@ -27,32 +27,32 @@ public class ApiExceptionHandler {
     */
     @ExceptionHandler(UserIdDuplicatedException.class)
     public ResponseEntity<String> handleDuplicateUserIdException() {
-        log.error("중복된 아이디가 존재합니다.");
+        log.error("[{}] 중복된 아이디가 존재합니다.", HttpStatus.BAD_REQUEST);
         return RESPONSE_USER_ID_BAD_REQUEST;
     }
 
     @ExceptionHandler(UserNotAccountException.class)
     public ResponseEntity<String> handleNotUserDataException() {
-        log.error("입력된 이메일과 일치하는 계정이 없습니다");
+        log.error("[{}] 입력된 이메일과 일치하는 계정이 없습니다", HttpStatus.BAD_REQUEST);
         return RESPONSE_USER_ACCOUNT_BAD_REQUEST;
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<String> handleMethodArgumentNotValidException(MethodArgumentNotValidException exception) {
         ErrorMessage errorMessage = new ErrorMessage(exception.getBindingResult().getFieldErrors());
-        log.error("{}",errorMessage.getErrorMessage());
+        log.error("[{}] {}", HttpStatus.BAD_REQUEST, errorMessage.getErrorMessage());
         return new ResponseEntity<>(errorMessage.getErrorMessage(), HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(UserNotLoginException.class)
     public ResponseEntity<String> handleUserNotLoginException() {
-        log.error("유저에 대한 정보를 찾지 못했습니다. 로그인을 해주세요");
+        log.error("[{}] 유저에 대한 정보를 찾지 못했습니다. 로그인을 해주세요", HttpStatus.UNAUTHORIZED);
         return RESPONSE_USER_UNAUTHORIZED;
     }
 
     @ExceptionHandler(AwsS3FileNotUploadException.class)
     public ResponseEntity<String> handleAwsS3FileNotUploadException() {
-        log.error("s3 파일 업로드가 실패 했습니다");
+        log.error("[{}] s3 파일 업로드가 실패 했습니다", HttpStatus.INTERNAL_SERVER_ERROR);
         return RESPONSE_AWS_S3_FILE_NOT_UPLOAD;
     }
 
