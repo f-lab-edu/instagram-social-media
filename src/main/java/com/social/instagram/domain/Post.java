@@ -25,8 +25,6 @@ public class Post extends BaseTimeEntity {
 
     private String comment;
 
-    private String fileName;
-
     @Builder
     public Post(String userId, String comment) {
         this.userId = userId;
