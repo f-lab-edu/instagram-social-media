@@ -27,7 +27,7 @@ public class FileController {
         String userId = sessionService.getUserId();
         String filePath = awsS3Service.upload(file, userId);
 
-        postService.writePost(Post.changePostFilePathAndUserId(filePath, userId));
+        postService.writePost(Post.changePostEntity(filePath, userId));
 
         return RESPONSE_ENTITY_CREATE;
     }

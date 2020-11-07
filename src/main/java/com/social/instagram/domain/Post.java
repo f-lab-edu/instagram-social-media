@@ -40,14 +40,14 @@ public class Post {
         this.filePath = filePath;
     }
 
-    public static Post changePostUserIdAndComment(PostDto postDto, String userId) {
+    public static Post changePostEntity(PostDto postDto, String userId) {
         return Post.builder()
                 .userId(userId)
                 .comment(postDto.getComment())
                 .build();
     }
 
-    public static Post changePostFilePathAndUserId(String filePath, String userId) {
+    public static Post changePostEntity(String filePath, String userId) {
         return Post.builder()
                 .filePath(filePath)
                 .userId(userId)
