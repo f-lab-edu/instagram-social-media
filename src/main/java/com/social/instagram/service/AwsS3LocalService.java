@@ -29,7 +29,7 @@ public class AwsS3LocalService implements AwsS3Service {
             throw new AwsS3FileNotUploadException();
         }
 
-        log.info("file name : '{}' upload success!", file.getOriginalFilename());
+        log.debug("file name : '{}' upload success!", file.getOriginalFilename());
     }
 
     private ObjectMetadata getContentTypeAndLength(MultipartFile file) {
