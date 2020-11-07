@@ -2,6 +2,7 @@ package com.social.instagram.domain;
 
 import com.social.instagram.domain.time.BaseTimeEntity;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -26,5 +27,13 @@ public class Reply extends BaseTimeEntity {
     private String comment;
 
     private long nice;
+
+    @Builder
+    public Reply(long postId, String userId, String comment, long nice) {
+        this.postId = postId;
+        this.userId = userId;
+        this.comment = comment;
+        this.nice = nice;
+    }
 
 }

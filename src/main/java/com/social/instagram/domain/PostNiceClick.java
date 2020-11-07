@@ -1,6 +1,7 @@
 package com.social.instagram.domain;
 
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -21,5 +22,11 @@ public class PostNiceClick {
     private long postId;
 
     private String niceClickUserId;
+
+    @Builder
+    public PostNiceClick(long postId, String niceClickUserId) {
+        this.postId = postId;
+        this.niceClickUserId = niceClickUserId;
+    }
 
 }
