@@ -21,15 +21,19 @@ public class AwsS3LocalService implements AwsS3Service {
     private final AmazonS3 amazonS3Client;
     private final String bucket;
 
-    public void upload(MultipartFile file){
+    public String upload(MultipartFile file, String userId){
+        String bucketName = bucket + userId;
+        String fileName = file.getOriginalFilename();
+
         try(InputStream inputStream = file.getInputStream()) {
-            amazonS3Client.putObject(new PutObjectRequest(bucket, file.getOriginalFilename(), inputStream, getContentTypeAndLength(file))
+            amazonS3Client.putObject(new PutObjectRequest(bucketName, fileName, inputStream, getContentTypeAndLength(file))
                     .withCannedAcl(CannedAccessControlList.PublicRead));
         } catch (IOException e) {
             throw new AwsS3FileNotUploadException();
         }
 
-        log.debug("file name : '{}' upload success!", file.getOriginalFilename());
+        log.debug("file name : '{}' upload success!", fileName);
+        return amazonS3Client.getUrl(bucketName, fileName).toString();
     }
 
     private ObjectMetadata getContentTypeAndLength(MultipartFile file) {

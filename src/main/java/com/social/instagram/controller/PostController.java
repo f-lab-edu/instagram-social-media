@@ -25,7 +25,7 @@ public class PostController {
     @PostMapping
     @LoginValidation
     public ResponseEntity<Void> writePost(@RequestBody PostDto postDto) {
-        postService.writePost(Post.changePostEntity(postDto, sessionService.getUserId()));
+        postService.writePost(Post.changePostUserIdAndComment(postDto, sessionService.getUserId()));
 
         return RESPONSE_ENTITY_CREATE;
     }
