@@ -5,8 +5,8 @@ import com.amazonaws.services.s3.model.CannedAccessControlList;
 import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.amazonaws.services.s3.model.PutObjectRequest;
 import com.social.instagram.exception.AwsS3FileNotUploadException;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -15,11 +15,15 @@ import java.io.InputStream;
 
 @Service
 @Slf4j
-@RequiredArgsConstructor
 public class AwsS3LocalService implements AwsS3Service {
 
     private final AmazonS3 amazonS3Client;
     private final String bucket;
+
+    public AwsS3LocalService(final AmazonS3 amazonS3Client, @Value("${aws.s3.bucket}") final String bucket) {
+        this.amazonS3Client = amazonS3Client;
+        this.bucket = bucket;
+    }
 
     public String upload(MultipartFile file, String userId){
         String bucketName = bucket + userId;
