@@ -1,22 +1,21 @@
 package com.social.instagram.domain;
 
+import com.social.instagram.domain.time.BaseTimeEntity;
 import com.social.instagram.dto.PostDto;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import java.time.LocalDateTime;
 
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Post {
+public class Post extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -40,10 +39,10 @@ public class Post {
         this.filePath = filePath;
     }
 
-    public static Post changePostEntity(PostDto postDto, String userId) {
+    public static Post changePostEntity(String filePath, String userId) {
         return Post.builder()
+                .filePath(filePath)
                 .userId(userId)
-                .comment(postDto.getComment())
                 .build();
     }
 
