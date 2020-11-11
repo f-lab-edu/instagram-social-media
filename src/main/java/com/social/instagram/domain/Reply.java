@@ -14,35 +14,26 @@ import javax.persistence.Id;
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Post extends BaseTimeEntity {
+public class Reply extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
+    private long postId;
+
     private String userId;
 
     private String comment;
 
-    private String filePath;
-
-    @CreationTimestamp
-    private LocalDateTime createTime;
-
     private long nice;
 
     @Builder
-    public Post(String userId, String comment, String filePath) {
+    public Reply(long postId, String userId, String comment, long nice) {
+        this.postId = postId;
         this.userId = userId;
         this.comment = comment;
-        this.filePath = filePath;
-    }
-
-    public static Post changePostEntity(String filePath, String userId) {
-        return Post.builder()
-                .filePath(filePath)
-                .userId(userId)
-                .build();
+        this.nice = nice;
     }
 
 }
