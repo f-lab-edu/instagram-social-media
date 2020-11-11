@@ -11,6 +11,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+
+import java.util.List;
 
 import static com.social.instagram.util.httpstatus.ResponseConstants.RESPONSE_ENTITY_CREATE;
 
@@ -24,10 +28,20 @@ public class PostController {
 
     @PostMapping
     @LoginValidation
-    public ResponseEntity<Void> writePost(@RequestBody PostDto postDto) {
-        postService.writePost(Post.changePostEntity(postDto, sessionService.getUserId()));
+    public ResponseEntity<Void> updateComment(@RequestBody PostDto postDto) {
+        long id = postService.getId(sessionService.getUserId());
+        String comment = postDto.getComment();
+
+        postService.updateComment(id, comment);
 
         return RESPONSE_ENTITY_CREATE;
+    }
+
+    @GetMapping("/{userId}/images")
+    public ResponseEntity<List<Post>> getPost(@PathVariable String userId) {
+        List<Post> posts = postService.getPost(userId);
+
+        return ResponseEntity.ok(posts);
     }
 
 }
