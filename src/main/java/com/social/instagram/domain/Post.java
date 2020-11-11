@@ -25,16 +25,24 @@ public class Post extends BaseTimeEntity {
 
     private String comment;
 
+    private String filePath;
+
+    @CreationTimestamp
+    private LocalDateTime createTime;
+
+    private long nice;
+
     @Builder
-    public Post(String userId, String comment) {
+    public Post(String userId, String comment, String filePath) {
         this.userId = userId;
         this.comment = comment;
+        this.filePath = filePath;
     }
 
-    public static Post changePostEntity(PostDto postDto, String userId) {
+    public static Post changePostEntity(String filePath, String userId) {
         return Post.builder()
+                .filePath(filePath)
                 .userId(userId)
-                .comment(postDto.getComment())
                 .build();
     }
 
