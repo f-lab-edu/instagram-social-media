@@ -20,4 +20,7 @@ public class ResponseConstants {
     public static final ResponseEntity<String> RESPONSE_USER_UNAUTHORIZED =
             new ResponseEntity<>("유저에 대한 정보를 찾지 못했습니다. 로그인을 해주세요", HttpStatus.UNAUTHORIZED);
 
+    public static final ResponseEntity<String> RESPONSE_AWS_S3_FILE_NOT_UPLOAD =
+            new ResponseEntity<>("aws s3에 파일 업로드가 실패했습니다.", HttpStatus.INTERNAL_SERVER_ERROR);
+
 }

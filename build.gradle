@@ -39,10 +39,17 @@ repositories {
     mavenCentral()
 }
 
+/*
+    @PostConstruct annotation은 jdk9 버전에 deprecated 되고 jdk11 버전에 완전히 제거 되면서 jdk11 이상 버전에
+    사용하려면 javax.annotation-api의 종속성을 추가해야한다.
+*/
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.boot:spring-boot-starter-validation'
+    compile group: 'com.amazonaws', name: 'aws-java-sdk-bom', version: '1.11.822', ext: 'pom'
+    compile group: 'com.amazonaws', name: 'aws-java-sdk-s3', version: '1.11.882'
+    compile group: 'javax.annotation', name: 'javax.annotation-api', version: '1.3.2'
     compile 'org.springframework.boot:spring-boot-starter-aop'
     compile 'org.springframework.session:spring-session-data-redis'
     compile 'org.springframework.boot:spring-boot-starter-data-redis'
