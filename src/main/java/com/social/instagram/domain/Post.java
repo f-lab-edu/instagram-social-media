@@ -26,9 +26,6 @@ public class Post extends BaseTimeEntity {
 
     private String filePath;
 
-    @CreationTimestamp
-    private LocalDateTime createTime;
-
     private long nice;
 
     @Builder

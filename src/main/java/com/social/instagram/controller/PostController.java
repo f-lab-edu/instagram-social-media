@@ -24,15 +24,11 @@ import static com.social.instagram.util.httpstatus.ResponseConstants.RESPONSE_EN
 public class PostController {
 
     private final PostService postService;
-    private final SessionService sessionService;
 
     @PostMapping
     @LoginValidation
     public ResponseEntity<Void> updateComment(@RequestBody PostDto postDto) {
-        long id = postService.getId(sessionService.getUserId());
-        String comment = postDto.getComment();
-
-        postService.updateComment(id, comment);
+        postService.updateComment(postDto);
 
         return RESPONSE_ENTITY_CREATE;
     }
