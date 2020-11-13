@@ -5,6 +5,9 @@ import com.social.instagram.dto.PostDto;
 import com.social.instagram.dto.response.PostResponseDto;
 import com.social.instagram.service.PostService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -33,8 +36,9 @@ public class PostController {
     }
 
     @GetMapping("/{userId}/images")
-    public ResponseEntity<List<PostResponseDto>> getPost(@PathVariable String userId) {
-        List<PostResponseDto> posts = postService.getPost(userId);
+    public ResponseEntity<List<PostResponseDto>> getPost(@PathVariable String userId,
+                @PageableDefault(sort = "id", direction = Sort.Direction.DESC) Pageable pageable) {
+        List<PostResponseDto> posts = postService.getPost(userId, pageable);
 
         return ResponseEntity.ok(posts);
     }
