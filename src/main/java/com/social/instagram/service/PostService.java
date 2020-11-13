@@ -2,11 +2,15 @@ package com.social.instagram.service;
 
 import com.social.instagram.domain.Post;
 import com.social.instagram.dto.PostDto;
+import com.social.instagram.dto.response.PostResponseDto;
 import com.social.instagram.repository.PostRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Service
 @RequiredArgsConstructor
@@ -27,8 +31,11 @@ public class PostService {
         postRepository.updateComment(getId(sessionService.getUserId()), postDto.getComment());
     }
 
-    public List<Post> getPost(String userId) {
-        return postRepository.findByUserIdAndFilePathIsNotNull(userId);
+    public List<PostResponseDto> getPost(String userId) {
+        return Stream.of(postRepository.findByUserIdAndFilePathIsNotNullOrderByCreatedTimeDesc(userId))
+                .flatMap(Collection::stream)
+                .map(PostResponseDto::changePostResponseDto)
+                .collect(Collectors.toList());
     }
 
 }

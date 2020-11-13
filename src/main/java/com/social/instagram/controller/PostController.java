@@ -1,10 +1,9 @@
 package com.social.instagram.controller;
 
 import com.social.instagram.annotation.LoginValidation;
-import com.social.instagram.domain.Post;
 import com.social.instagram.dto.PostDto;
+import com.social.instagram.dto.response.PostResponseDto;
 import com.social.instagram.service.PostService;
-import com.social.instagram.service.SessionService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -34,8 +33,8 @@ public class PostController {
     }
 
     @GetMapping("/{userId}/images")
-    public ResponseEntity<List<Post>> getPost(@PathVariable String userId) {
-        List<Post> posts = postService.getPost(userId);
+    public ResponseEntity<List<PostResponseDto>> getPost(@PathVariable String userId) {
+        List<PostResponseDto> posts = postService.getPost(userId);
 
         return ResponseEntity.ok(posts);
     }

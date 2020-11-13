@@ -18,6 +18,6 @@ public interface PostRepository extends JpaRepository<Post, Long> {
     @Query("UPDATE Post SET comment = :comment WHERE id = :postId")
     void updateComment(long postId, String comment);
 
-    List<Post> findByUserIdAndFilePathIsNotNull(String userId);
+    List<Post> findByUserIdAndFilePathIsNotNullOrderByCreatedTimeDesc(String userId);
 
 }
