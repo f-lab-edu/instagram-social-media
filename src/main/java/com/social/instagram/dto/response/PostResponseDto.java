@@ -3,12 +3,10 @@ package com.social.instagram.dto.response;
 import com.social.instagram.domain.Post;
 import lombok.Builder;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
 @Getter
-@NoArgsConstructor
 public class PostResponseDto {
 
     private long id;
@@ -25,8 +23,8 @@ public class PostResponseDto {
 
     @Builder
     public PostResponseDto(long id, String userId, String comment,
-                                           LocalDateTime createdTime, LocalDateTime modifiedTime,
-                                           String filePath) {
+                           LocalDateTime createdTime, LocalDateTime modifiedTime,
+                           String filePath) {
         this.id = id;
         this.userId = userId;
         this.comment = comment;
