@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -35,8 +35,8 @@ public class PostController {
         return RESPONSE_ENTITY_CREATE;
     }
 
-    @GetMapping("/{userId}/images")
-    public ResponseEntity<List<PostResponseDto>> getPost(@PathVariable String userId,
+    @GetMapping
+    public ResponseEntity<List<PostResponseDto>> getPost(@RequestParam String userId,
                 @PageableDefault(sort = "id", direction = Sort.Direction.DESC) Pageable pageable) {
         List<PostResponseDto> posts = postService.getPost(userId, pageable);
 
