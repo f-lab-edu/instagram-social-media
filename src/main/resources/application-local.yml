@@ -16,8 +16,12 @@ spring:
         format_sql: true
 
   redis:
-    host: 127.0.0.1
-    port: 6379
+    session:
+      host: 127.0.0.1
+      port: 6379
+    cache:
+      host: 127.0.0.1
+      port: 6378
 
 #hibernate가 ?에 어떤값이 들어가 있는지 구체적으로 알려주는 설정
 logging:
