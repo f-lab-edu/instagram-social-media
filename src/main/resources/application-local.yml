@@ -22,8 +22,4 @@ spring:
 #hibernate가 ?에 어떤값이 들어가 있는지 구체적으로 알려주는 설정
 logging:
   level:
-    org:
-      hibernate:
-        type:
-          descriptor:
-            sql: trace
+    org.hibernate.type.descriptor.sql : trace

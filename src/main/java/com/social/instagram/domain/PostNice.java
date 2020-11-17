@@ -16,7 +16,7 @@ public class PostNice {
     @Id
     private long postId;
 
-    long nice;
+    private long nice;
 
     @Builder
     public PostNice(long postId, long nice) {
