@@ -16,12 +16,12 @@ import org.springframework.data.redis.serializer.StringRedisSerializer;
     하지만 @Value에서 프로퍼티 파일의 내용을 참조하게 해주면 소스코드의 수정 없이 @Value를 통해 프로퍼티에 주입되는 값을 변경할 수 있다.
  */
 @Configuration
-public class RedisConfig {
+public class RedisSessionConfig {
 
-    @Value("${spring.redis.host}")
+    @Value("${spring.redis.session.host}")
     private String redisHost;
 
-    @Value("${spring.redis.port}")
+    @Value("${spring.redis.session.port}")
     private int redisPort;
 
     /*
