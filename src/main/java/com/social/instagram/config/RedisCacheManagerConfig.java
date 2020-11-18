@@ -20,7 +20,7 @@ import java.time.Duration;
 @RequiredArgsConstructor
 public class RedisCacheManagerConfig {
 
-    private static final int TEN_MINUTE = 10;
+    private static final int CACHE_EXPIRE = 10;
 
     @Value("${spring.redis.cache.host}")
     private String redisHost;
@@ -47,7 +47,7 @@ public class RedisCacheManagerConfig {
                         RedisSerializationContext.SerializationPair.fromSerializer(new StringRedisSerializer()))
                 .serializeValuesWith(
                         RedisSerializationContext.SerializationPair.fromSerializer(new GenericJackson2JsonRedisSerializer()))
-                .entryTtl(Duration.ofMinutes(TEN_MINUTE));
+                .entryTtl(Duration.ofMinutes(CACHE_EXPIRE));
     }
 
 }
