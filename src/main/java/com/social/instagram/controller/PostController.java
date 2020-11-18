@@ -5,7 +5,6 @@ import com.social.instagram.dto.PostDto;
 import com.social.instagram.dto.response.PostResponseDto;
 import com.social.instagram.service.PostService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
@@ -36,7 +35,6 @@ public class PostController {
         return RESPONSE_ENTITY_CREATE;
     }
 
-    @Cacheable(value = "userIdFeedsCache", key = "#userId")
     @GetMapping
     public ResponseEntity<List<PostResponseDto>> getPost(@RequestParam String userId,
                 @PageableDefault(sort = "id", direction = Sort.Direction.DESC) Pageable pageable) {
