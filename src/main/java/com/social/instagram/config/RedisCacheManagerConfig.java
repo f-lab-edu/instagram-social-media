@@ -17,7 +17,7 @@ import java.time.Duration;
 import java.util.HashMap;
 import java.util.Map;
 
-import static com.social.instagram.util.cache.RedisConstants.FEEDS_CACHE_EXPIRE_MINUTE;
+import static com.social.instagram.util.cache.RedisConstants.USER_ID_FEEDS_CACHE_EXPIRE_MINUTE;
 import static com.social.instagram.util.cache.RedisConstants.USER_ID_FEEDS_CACHE;
 
 @Configuration
@@ -50,7 +50,7 @@ public class RedisCacheManagerConfig {
                                 RedisSerializationContext.SerializationPair.fromSerializer(new StringRedisSerializer()))
                         .serializeValuesWith(
                                 RedisSerializationContext.SerializationPair.fromSerializer(new GenericJackson2JsonRedisSerializer()))
-                        .entryTtl(Duration.ofMinutes(FEEDS_CACHE_EXPIRE_MINUTE)));
+                        .entryTtl(Duration.ofMinutes(USER_ID_FEEDS_CACHE_EXPIRE_MINUTE)));
 
         return redisCacheMap;
     }
