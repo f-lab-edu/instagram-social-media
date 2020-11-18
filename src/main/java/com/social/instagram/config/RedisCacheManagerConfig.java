@@ -1,6 +1,5 @@
 package com.social.instagram.config;
 
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cache.CacheManager;
 import org.springframework.context.annotation.Bean;
@@ -15,12 +14,14 @@ import org.springframework.data.redis.serializer.RedisSerializationContext;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
 
 import java.time.Duration;
+import java.util.HashMap;
+import java.util.Map;
+
+import static com.social.instagram.util.cache.RedisConstants.FEEDS_CACHE_EXPIRE_MINUTE;
+import static com.social.instagram.util.cache.RedisConstants.USER_ID_FEEDS_CACHE;
 
 @Configuration
-@RequiredArgsConstructor
 public class RedisCacheManagerConfig {
-
-    private static final int CACHE_EXPIRE_MINUTE = 10;
 
     @Value("${spring.redis.cache.host}")
     private String redisHost;
@@ -37,17 +38,21 @@ public class RedisCacheManagerConfig {
     public CacheManager redisCacheManager() {
         return RedisCacheManager.RedisCacheManagerBuilder
                 .fromConnectionFactory(redisCacheConnectionFactory())
-                .cacheDefaults(redisCacheConfiguration())
+                .withInitialCacheConfigurations(redisConfigurationMap())
                 .build();
     }
 
-    private RedisCacheConfiguration redisCacheConfiguration() {
-        return RedisCacheConfiguration.defaultCacheConfig()
-                .serializeKeysWith(
-                        RedisSerializationContext.SerializationPair.fromSerializer(new StringRedisSerializer()))
-                .serializeValuesWith(
-                        RedisSerializationContext.SerializationPair.fromSerializer(new GenericJackson2JsonRedisSerializer()))
-                .entryTtl(Duration.ofMinutes(CACHE_EXPIRE_MINUTE));
+    private Map<String, RedisCacheConfiguration> redisConfigurationMap() {
+        Map<String, RedisCacheConfiguration> redisCacheMap = new HashMap<>();
+        redisCacheMap.put(USER_ID_FEEDS_CACHE,
+                RedisCacheConfiguration.defaultCacheConfig()
+                        .serializeKeysWith(
+                                RedisSerializationContext.SerializationPair.fromSerializer(new StringRedisSerializer()))
+                        .serializeValuesWith(
+                                RedisSerializationContext.SerializationPair.fromSerializer(new GenericJackson2JsonRedisSerializer()))
+                        .entryTtl(Duration.ofMinutes(FEEDS_CACHE_EXPIRE_MINUTE)));
+
+        return redisCacheMap;
     }
 
 }
