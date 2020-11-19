@@ -33,7 +33,7 @@ public class PostService {
         postRepository.updateComment(getId(sessionService.getUserId()), postDto.getComment());
     }
 
-    @Cacheable(value = "userIdFeedsCache", key = "#userId")
+    @Cacheable(value = "feedsPerUser", key = "#userId")
     public List<PostResponseDto> getPost(String userId, Pageable pageable) {
         return Stream.of(postRepository.findByUserIdAndFilePathIsNotNull(userId, pageable))
                 .flatMap(Streamable::stream)

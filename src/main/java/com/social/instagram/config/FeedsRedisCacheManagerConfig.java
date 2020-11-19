@@ -17,17 +17,20 @@ import java.time.Duration;
 import java.util.HashMap;
 import java.util.Map;
 
-import static com.social.instagram.util.cache.RedisFeedsConstants.USER_ID_FEEDS_CACHE_EXPIRE_MINUTE;
-import static com.social.instagram.util.cache.RedisFeedsConstants.USER_ID_FEEDS_CACHE;
-
 @Configuration
-public class RedisFeedsCacheManagerConfig {
+public class FeedsRedisCacheManagerConfig {
 
     @Value("${spring.redis.cache.host}")
     private String redisHost;
 
     @Value("${spring.redis.cache.port}")
     private int redisPort;
+
+    @Value("${feeds.per.user.name}")
+    private String feedsPerUserName;
+
+    @Value("${feeds.per.user.expire.minute}")
+    private int feedsPerUserExpireMinute;
 
     @Bean
     public RedisConnectionFactory redisCacheConnectionFactory() {
@@ -44,13 +47,14 @@ public class RedisFeedsCacheManagerConfig {
 
     private Map<String, RedisCacheConfiguration> redisConfigurationMap() {
         Map<String, RedisCacheConfiguration> redisCacheMap = new HashMap<>();
-        redisCacheMap.put(USER_ID_FEEDS_CACHE,
+
+        redisCacheMap.put(feedsPerUserName,
                 RedisCacheConfiguration.defaultCacheConfig()
                         .serializeKeysWith(
                                 RedisSerializationContext.SerializationPair.fromSerializer(new StringRedisSerializer()))
                         .serializeValuesWith(
                                 RedisSerializationContext.SerializationPair.fromSerializer(new GenericJackson2JsonRedisSerializer()))
-                        .entryTtl(Duration.ofMinutes(USER_ID_FEEDS_CACHE_EXPIRE_MINUTE)));
+                        .entryTtl(Duration.ofMinutes(feedsPerUserExpireMinute)));
 
         return redisCacheMap;
     }
