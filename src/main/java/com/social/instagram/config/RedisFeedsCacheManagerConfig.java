@@ -17,11 +17,11 @@ import java.time.Duration;
 import java.util.HashMap;
 import java.util.Map;
 
-import static com.social.instagram.util.cache.RedisConstants.USER_ID_FEEDS_CACHE_EXPIRE_MINUTE;
-import static com.social.instagram.util.cache.RedisConstants.USER_ID_FEEDS_CACHE;
+import static com.social.instagram.util.cache.RedisFeedsConstants.USER_ID_FEEDS_CACHE_EXPIRE_MINUTE;
+import static com.social.instagram.util.cache.RedisFeedsConstants.USER_ID_FEEDS_CACHE;
 
 @Configuration
-public class RedisCacheManagerConfig {
+public class RedisFeedsCacheManagerConfig {
 
     @Value("${spring.redis.cache.host}")
     private String redisHost;

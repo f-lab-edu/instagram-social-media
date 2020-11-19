@@ -1,6 +1,6 @@
 package com.social.instagram.util.cache;
 
-public class RedisConstants {
+public class RedisFeedsConstants {
 
     public static final int USER_ID_FEEDS_CACHE_EXPIRE_MINUTE = 10;
 
