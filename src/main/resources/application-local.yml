@@ -27,3 +27,10 @@ spring:
 logging:
   level:
     org.hibernate.type.descriptor.sql : trace
+
+feeds:
+  per:
+    user:
+      name : feedsPerUser
+      expire:
+        minute: 10
