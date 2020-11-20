@@ -1,6 +1,5 @@
 package com.social.instagram.config;
 
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cache.CacheManager;
 import org.springframework.context.annotation.Bean;
@@ -14,15 +13,24 @@ import org.springframework.data.redis.serializer.GenericJackson2JsonRedisSeriali
 import org.springframework.data.redis.serializer.RedisSerializationContext;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
 
+import java.time.Duration;
+import java.util.HashMap;
+import java.util.Map;
+
 @Configuration
-@RequiredArgsConstructor
-public class RedisCacheManagerConfig {
+public class FeedsRedisCacheManagerConfig {
 
     @Value("${spring.redis.cache.host}")
     private String redisHost;
 
     @Value("${spring.redis.cache.port}")
     private int redisPort;
+
+    @Value("${feeds.per.user.name}")
+    private String feedsPerUserName;
+
+    @Value("${feeds.per.user.expire.minute}")
+    private int feedsPerUserExpireMinute;
 
     @Bean
     public RedisConnectionFactory redisCacheConnectionFactory() {
@@ -33,16 +41,22 @@ public class RedisCacheManagerConfig {
     public CacheManager redisCacheManager() {
         return RedisCacheManager.RedisCacheManagerBuilder
                 .fromConnectionFactory(redisCacheConnectionFactory())
-                .cacheDefaults(redisCacheConfiguration())
+                .withInitialCacheConfigurations(redisConfigurationMap())
                 .build();
     }
 
-    private RedisCacheConfiguration redisCacheConfiguration() {
-        return RedisCacheConfiguration.defaultCacheConfig()
-                .serializeKeysWith(
-                        RedisSerializationContext.SerializationPair.fromSerializer(new StringRedisSerializer()))
-                .serializeValuesWith(
-                        RedisSerializationContext.SerializationPair.fromSerializer(new GenericJackson2JsonRedisSerializer()));
+    private Map<String, RedisCacheConfiguration> redisConfigurationMap() {
+        Map<String, RedisCacheConfiguration> redisCacheMap = new HashMap<>();
+
+        redisCacheMap.put(feedsPerUserName,
+                RedisCacheConfiguration.defaultCacheConfig()
+                        .serializeKeysWith(
+                                RedisSerializationContext.SerializationPair.fromSerializer(new StringRedisSerializer()))
+                        .serializeValuesWith(
+                                RedisSerializationContext.SerializationPair.fromSerializer(new GenericJackson2JsonRedisSerializer()))
+                        .entryTtl(Duration.ofMinutes(feedsPerUserExpireMinute)));
+
+        return redisCacheMap;
     }
 
 }

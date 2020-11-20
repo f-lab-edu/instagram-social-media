@@ -5,6 +5,7 @@ import com.social.instagram.dto.PostDto;
 import com.social.instagram.dto.response.PostResponseDto;
 import com.social.instagram.repository.PostRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.util.Streamable;
 import org.springframework.stereotype.Service;
@@ -32,6 +33,7 @@ public class PostService {
         postRepository.updateComment(getId(sessionService.getUserId()), postDto.getComment());
     }
 
+    @Cacheable(value = "feedsPerUser", key = "#userId")
     public List<PostResponseDto> getPost(String userId, Pageable pageable) {
         return Stream.of(postRepository.findByUserIdAndFilePathIsNotNull(userId, pageable))
                 .flatMap(Streamable::stream)
