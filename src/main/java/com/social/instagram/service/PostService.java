@@ -44,4 +44,8 @@ public class PostService {
                 .collect(Collectors.toList());
     }
 
+    public void updateNice(long id) {
+        postNiceRepository.updateNice(id);
+    }
+
 }
