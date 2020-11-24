@@ -3,6 +3,7 @@ package com.social.instagram.service;
 import com.social.instagram.domain.Post;
 import com.social.instagram.dto.PostDto;
 import com.social.instagram.dto.response.PostResponseDto;
+import com.social.instagram.repository.PostNiceRepository;
 import com.social.instagram.repository.PostRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.cache.annotation.Cacheable;
@@ -20,6 +21,7 @@ public class PostService {
 
     private final PostRepository postRepository;
     private final SessionService sessionService;
+    private final PostNiceRepository postNiceRepository;
 
     public void writePost(Post post) {
         postRepository.save(post);
@@ -37,7 +39,8 @@ public class PostService {
     public List<PostResponseDto> getPost(String userId, Pageable pageable) {
         return Stream.of(postRepository.findByUserIdAndFilePathIsNotNull(userId, pageable))
                 .flatMap(Streamable::stream)
-                .map(PostResponseDto::changePostResponseDto)
+                .map(post ->
+                        PostResponseDto.from(post, postNiceRepository.findByPostId(post.getId())))
                 .collect(Collectors.toList());
     }
 
