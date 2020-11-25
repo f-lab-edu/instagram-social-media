@@ -39,8 +39,7 @@ public class PostService {
     public List<PostResponseDto> getPost(String userId, Pageable pageable) {
         return Stream.of(postRepository.findByUserIdAndFilePathIsNotNull(userId, pageable))
                 .flatMap(Streamable::stream)
-                .map(post ->
-                        PostResponseDto.from(post, postNiceRepository.findByPostId(post.getId())))
+                .map(PostResponseDto::from)
                 .collect(Collectors.toList());
     }
 
