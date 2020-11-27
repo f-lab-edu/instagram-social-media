@@ -2,6 +2,6 @@
 spring:
   profiles:
     active: local
-    include: aws
+    include: aws, kafka
 
 ---
