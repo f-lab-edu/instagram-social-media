@@ -24,22 +24,19 @@ public class PostResponseDto {
 
     private String filePath;
 
-    private long nice;
-
     @Builder
     public PostResponseDto(long id, String userId, String comment,
                            LocalDateTime createdTime, LocalDateTime modifiedTime,
-                           String filePath, long nice) {
+                           String filePath) {
         this.id = id;
         this.userId = userId;
         this.comment = comment;
         this.createdTime = createdTime;
         this.modifiedTime = modifiedTime;
         this.filePath = filePath;
-        this.nice = nice;
     }
 
-    public static PostResponseDto from(Post post, PostNice postNice) {
+    public static PostResponseDto from(Post post) {
         return PostResponseDto.builder()
                 .id(post.getId())
                 .userId(post.getUserId())
@@ -47,7 +44,6 @@ public class PostResponseDto {
                 .createdTime(post.getCreatedTime())
                 .modifiedTime(post.getModifiedTime())
                 .filePath(post.getFilePath())
-                .nice(postNice.getNice())
                 .build();
     }
 
