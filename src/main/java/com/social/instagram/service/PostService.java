@@ -40,8 +40,12 @@ public class PostService {
         return Stream.of(postRepository.findByUserIdAndFilePathIsNotNull(userId, pageable))
                 .flatMap(Streamable::stream)
                 .map(post ->
-                        PostResponseDto.from(post, postNiceRepository.findByPostId(post.getId())))
+                        PostResponseDto.changePostResponseDto(post, postNiceRepository.findByPostId(post.getId())))
                 .collect(Collectors.toList());
+    }
+
+    public void updateNice(long id) {
+        postNiceRepository.updateNice(id);
     }
 
 }
