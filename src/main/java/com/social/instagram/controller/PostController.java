@@ -15,10 +15,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.PutMapping;
 
 import java.util.List;
 
 import static com.social.instagram.util.httpstatus.ResponseConstants.RESPONSE_ENTITY_CREATE;
+import static com.social.instagram.util.httpstatus.ResponseConstants.RESPONSE_ENTITY_OK;
 
 @RestController
 @RequiredArgsConstructor
@@ -41,6 +43,13 @@ public class PostController {
         List<PostResponseDto> posts = postService.getPost(userId, pageable);
 
         return ResponseEntity.ok(posts);
+    }
+
+    @PutMapping
+    public ResponseEntity<Void> updateNice(@RequestParam long id) {
+        postService.updateNice(id);
+
+        return RESPONSE_ENTITY_OK;
     }
 
 }
