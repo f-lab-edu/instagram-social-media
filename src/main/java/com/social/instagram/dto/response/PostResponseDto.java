@@ -39,7 +39,7 @@ public class PostResponseDto {
         this.nice = nice;
     }
 
-    public static PostResponseDto changePostResponseDto(Post post, PostNice postNice) {
+    public static PostResponseDto from(Post post, PostNice postNice) {
         return PostResponseDto.builder()
                 .id(post.getId())
                 .userId(post.getUserId())
