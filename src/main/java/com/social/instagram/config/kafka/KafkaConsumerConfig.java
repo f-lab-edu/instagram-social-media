@@ -21,13 +21,13 @@ public class KafkaConsumerConfig {
 
     @Bean
     public ConsumerFactory<String, Long> consumerFactory() {
-        Map<String, Object> consumerConfigMap = new HashMap<>();
+        Map<String, Object> consumerConfig = new HashMap<>();
 
-        consumerConfigMap.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, address);
-        consumerConfigMap.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
-        consumerConfigMap.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, JsonDeserializer.class);
+        consumerConfig.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, address);
+        consumerConfig.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
+        consumerConfig.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, JsonDeserializer.class);
 
-        return new DefaultKafkaConsumerFactory<>(consumerConfigMap);
+        return new DefaultKafkaConsumerFactory<>(consumerConfig);
     }
 
     @Bean

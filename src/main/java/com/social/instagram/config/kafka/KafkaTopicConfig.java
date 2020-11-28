@@ -17,18 +17,20 @@ public class KafkaTopicConfig {
     @Value("${kafka.bootstrap.address}")
     private String address;
 
+    private static final String NICE_TOPIC = "nice";
+
     @Bean
     public KafkaAdmin kafkaAdmin() {
-        Map<String, Object> configs = new HashMap<>();
+        Map<String, Object> kafkaAdminConfig = new HashMap<>();
 
-        configs.put(AdminClientConfig.BOOTSTRAP_SERVERS_CONFIG, address);
+        kafkaAdminConfig.put(AdminClientConfig.BOOTSTRAP_SERVERS_CONFIG, address);
 
-        return new KafkaAdmin(configs);
+        return new KafkaAdmin(kafkaAdminConfig);
     }
 
     @Bean
     public NewTopic niceTopic() {
-        return TopicBuilder.name("nice")
+        return TopicBuilder.name(NICE_TOPIC)
                 .build();
     }
 
