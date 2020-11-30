@@ -19,15 +19,22 @@ public class KafkaConsumerConfig {
     @Value("${kafka.bootstrap.address}")
     private String address;
 
+    @Value("${kafka.batch.allow}")
+    private boolean batchAllow;
+
+    @Value("${kafka.batch.size}")
+    private int batchMessageMax;
+
     @Bean
     public ConsumerFactory<String, Long> consumerFactory() {
-        Map<String, Object> consumerConfig = new HashMap<>();
+        Map<String, Object> consumerConfigMap = new HashMap<>();
 
-        consumerConfig.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, address);
-        consumerConfig.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
-        consumerConfig.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, JsonDeserializer.class);
+        consumerConfigMap.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, address);
+        consumerConfigMap.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
+        consumerConfigMap.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, JsonDeserializer.class);
+        consumerConfigMap.put(ConsumerConfig.MAX_POLL_RECORDS_CONFIG, batchMessageMax);
 
-        return new DefaultKafkaConsumerFactory<>(consumerConfig);
+        return new DefaultKafkaConsumerFactory<>(consumerConfigMap);
     }
 
     @Bean
@@ -37,6 +44,7 @@ public class KafkaConsumerConfig {
         ConcurrentKafkaListenerContainerFactory<String, Long> factory =
                 new ConcurrentKafkaListenerContainerFactory<>();
         factory.setConsumerFactory(consumerFactory());
+        factory.setBatchListener(batchAllow);
 
         return factory;
     }
