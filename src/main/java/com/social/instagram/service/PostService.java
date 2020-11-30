@@ -21,8 +21,8 @@ import java.util.stream.Stream;
     @KafkaListener
     이 어노테이션을 위해 생성된 리스너 컨테이너는 application context의 bean이 아니고
     KafkaListenerEndPointRegistry 유형의 인프라 빈에 등록된다.
-    인프라 빈은 프레임워크에 의해 자동으로 선언되며 컨테이너의 라이프 사이클을 관리한다.
-    리스너 컨테이너는 SmartLifeCycle을 구현하며 autoStartup은 기본적으로 true이기 때문에 자동으로 시작한다.
+    인프라 빈은 auto startup이 true로 설정되어 있을 때 프레임워크에 의해 자동으로 선언되며 컨테이너의 라이프 사이클을 관리한다.
+    리스너 컨테이너는 SmartLifeCycle을 구현하며 autoStartup은 기본적으로 true이다.
 */
 
 @Service
