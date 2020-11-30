@@ -60,7 +60,7 @@ public class PostService {
         kafkaTemplate.send(niceTopic, id);
     }
 
-    @KafkaListener(topics = "nice", groupId = "nice",
+    @KafkaListener(topics = "${kafka.topic.type.nice}", groupId = "${kafka.topic.type.nice}",
             containerFactory = "ListenerContainerFactory")
     public void receiveNiceMessage(List<Long> niceMessage) {
         for (long niceId : niceMessage) {
