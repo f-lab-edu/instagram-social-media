@@ -26,6 +26,7 @@ out/
 !**/src/main/**/out/
 !**/src/test/**/out/
 application-aws.yml
+application-kafka.yml
 
 ### NetBeans ###
 /nbproject/private/

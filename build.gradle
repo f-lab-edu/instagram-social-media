@@ -53,6 +53,14 @@ dependencies {
     compile 'org.springframework.boot:spring-boot-starter-aop'
     compile 'org.springframework.session:spring-session-data-redis'
     compile 'org.springframework.boot:spring-boot-starter-data-redis'
+
+    /*
+        현재 SpringBoot 2.3을 사용하여 kafka 호환 문제로 2.5.x를 사용해야함
+        만일 SpringBoot 2.4로 올릴 경우 kafka 버전을 2.6.x를 사용해야함
+    */
+    compile group: 'org.springframework.kafka', name: 'spring-kafka', version: '2.5.0.RELEASE'
+    compile group: 'org.apache.kafka', name: 'kafka-clients', version: '2.5.0'
+
     compileOnly 'org.projectlombok:lombok'
     runtimeOnly 'mysql:mysql-connector-java'
     annotationProcessor 'org.projectlombok:lombok'
