@@ -29,4 +29,11 @@ public class Follow {
         this.followId = followId;
     }
 
+    public static Follow from(String userId, String followId) {
+        return Follow.builder()
+                .userId(userId)
+                .followId(followId)
+                .build();
+    }
+
 }
