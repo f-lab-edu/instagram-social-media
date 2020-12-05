@@ -15,4 +15,8 @@ public class FollowService {
         followRepository.save(follow);
     }
 
+    public void cancelFollow(Follow follow) {
+        followRepository.deleteByUserIdAndFollowId(follow.getUserId(), follow.getFollowId());
+    }
+
 }
