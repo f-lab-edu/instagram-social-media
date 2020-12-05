@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 
-import static com.social.instagram.util.httpstatus.ResponseConstants.RESPONSE_ENTITY_OK;
+import static com.social.instagram.util.httpstatus.ResponseConstants.RESPONSE_ENTITY_CREATE;
 
 @RestController
 @RequiredArgsConstructor
@@ -23,7 +23,7 @@ public class FollowController {
     public ResponseEntity<Void> follow(@RequestBody Follow follow) {
         followService.follow(follow);
 
-        return RESPONSE_ENTITY_OK;
+        return RESPONSE_ENTITY_CREATE;
     }
 
 }
