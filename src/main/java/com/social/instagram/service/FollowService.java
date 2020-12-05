@@ -11,7 +11,7 @@ public class FollowService {
 
     private final FollowRepository followRepository;
 
-    public void sendFollow(Follow follow) {
+    public void follow(Follow follow) {
         followRepository.save(follow);
     }
 

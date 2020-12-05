@@ -20,8 +20,8 @@ public class FollowController {
     private final FollowService followService;
 
     @PostMapping
-    public ResponseEntity<Void> sendFollow(@RequestBody Follow follow) {
-        followService.sendFollow(follow);
+    public ResponseEntity<Void> follow(@RequestBody Follow follow) {
+        followService.follow(follow);
 
         return RESPONSE_ENTITY_OK;
     }
