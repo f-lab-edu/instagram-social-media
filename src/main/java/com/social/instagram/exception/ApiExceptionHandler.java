@@ -12,6 +12,7 @@ import static com.social.instagram.util.httpstatus.ResponseConstants.RESPONSE_US
 import static com.social.instagram.util.httpstatus.ResponseConstants.RESPONSE_USER_ACCOUNT_BAD_REQUEST;
 import static com.social.instagram.util.httpstatus.ResponseConstants.RESPONSE_USER_UNAUTHORIZED;
 import static com.social.instagram.util.httpstatus.ResponseConstants.RESPONSE_AWS_S3_FILE_NOT_UPLOAD;
+import static com.social.instagram.util.httpstatus.ResponseConstants.RESPONSE_FOLLOW_NOT_DELETE;
 
 /*
     @ControllerAdvice
@@ -54,6 +55,12 @@ public class ApiExceptionHandler {
     public ResponseEntity<String> handleAwsS3FileNotUploadException(AwsS3FileNotUploadException exception) {
         log.error("s3 파일 업로드가 실패 했습니다", exception);
         return RESPONSE_AWS_S3_FILE_NOT_UPLOAD;
+    }
+
+    @ExceptionHandler(FollowNotDeleteException.class)
+    public ResponseEntity<String> handleFollowNotDeleteException(FollowNotDeleteException exception) {
+        log.error("팔로우 취소가 실패 했습니다", exception);
+        return RESPONSE_FOLLOW_NOT_DELETE;
     }
 
 }

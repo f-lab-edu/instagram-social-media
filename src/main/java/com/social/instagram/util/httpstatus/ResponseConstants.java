@@ -23,4 +23,6 @@ public class ResponseConstants {
     public static final ResponseEntity<String> RESPONSE_AWS_S3_FILE_NOT_UPLOAD =
             new ResponseEntity<>("aws s3에 파일 업로드가 실패했습니다.", HttpStatus.INTERNAL_SERVER_ERROR);
 
+    public static final ResponseEntity<String> RESPONSE_FOLLOW_NOT_DELETE =
+            new ResponseEntity<>("팔로우 취소가 실패 했습니다", HttpStatus.INTERNAL_SERVER_ERROR);
 }
