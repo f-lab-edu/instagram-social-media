@@ -57,8 +57,8 @@ public class ApiExceptionHandler {
         return RESPONSE_AWS_S3_FILE_NOT_UPLOAD;
     }
 
-    @ExceptionHandler(FollowNotDeleteException.class)
-    public ResponseEntity<String> handleFollowNotDeleteException(FollowNotDeleteException exception) {
+    @ExceptionHandler(FollowOperationFailedException.class)
+    public ResponseEntity<String> handleFollowNotDeleteException(FollowOperationFailedException exception) {
         log.error("팔로우 취소가 실패 했습니다", exception);
         return RESPONSE_FOLLOW_NOT_DELETE;
     }
