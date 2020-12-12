@@ -31,7 +31,7 @@ public class FollowController {
     public ResponseEntity<Void>cancelFollow(@RequestBody Follow follow) {
         followService.cancelFollow(follow);
 
-        return RESPONSE_ENTITY_NO_CONTENT;
+        return RESPONSE_ENTITY_CREATE;
     }
 
 }
