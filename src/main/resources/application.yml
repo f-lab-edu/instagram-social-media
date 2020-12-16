@@ -2,6 +2,6 @@
 spring:
   profiles:
     active: local
-    include: aws, kafka
+    include: aws, kafka, firebase
 
 ---
