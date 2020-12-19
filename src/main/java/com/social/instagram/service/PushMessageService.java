@@ -7,23 +7,25 @@ import com.social.instagram.domain.Follow;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import java.util.concurrent.Future;
+
 @Service
-public class FirebaseService {
+public class PushMessageService {
 
     private final String firebaseToken;
     private final String messageTitle;
     private final String messageBody;
 
-    public FirebaseService(@Value("${firebase.token}") final String firebaseToken,
-                           @Value("${firebase.title}") final String messageTitle,
-                           @Value("${firebase.body}") final String messageBody) {
+    public PushMessageService(@Value("${firebase.token}") final String firebaseToken,
+                              @Value("${firebase.title}") final String messageTitle,
+                              @Value("${firebase.body}") final String messageBody) {
         this.firebaseToken = firebaseToken;
         this.messageTitle = messageTitle;
         this.messageBody = messageBody;
     }
 
-    public void sendAsyncMessage(Follow follow) {
-        FirebaseMessaging.getInstance().sendAsync(from(follow));
+    public Future<String> sendAsyncMessage(Follow follow) {
+        return FirebaseMessaging.getInstance().sendAsync(from(follow));
     }
 
     private Message from(Follow follow) {

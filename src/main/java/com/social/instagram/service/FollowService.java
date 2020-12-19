@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 public class FollowService {
 
     private final FollowRepository followRepository;
-    private final FirebaseService firebaseService;
+    private final PushMessageService firebaseService;
 
     public void follow(Follow follow) {
         followRepository.save(follow);
