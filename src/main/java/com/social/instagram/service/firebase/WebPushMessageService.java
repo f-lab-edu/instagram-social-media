@@ -1,4 +1,4 @@
-package com.social.instagram.service;
+package com.social.instagram.service.firebase;
 
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.google.firebase.messaging.Message;
@@ -10,20 +10,21 @@ import org.springframework.stereotype.Service;
 import java.util.concurrent.Future;
 
 @Service
-public class PushMessageService {
+public class WebPushMessageService implements FirebaseService {
 
     private final String firebaseToken;
     private final String messageTitle;
     private final String messageBody;
 
-    public PushMessageService(@Value("${firebase.token}") final String firebaseToken,
-                              @Value("${firebase.title}") final String messageTitle,
-                              @Value("${firebase.body}") final String messageBody) {
+    public WebPushMessageService(@Value("${firebase.token}") final String firebaseToken,
+                                 @Value("${firebase.title}") final String messageTitle,
+                                 @Value("${firebase.body}") final String messageBody) {
         this.firebaseToken = firebaseToken;
         this.messageTitle = messageTitle;
         this.messageBody = messageBody;
     }
 
+    @Override
     public Future<String> sendAsyncMessage(Follow follow) {
         return FirebaseMessaging.getInstance().sendAsync(from(follow));
     }

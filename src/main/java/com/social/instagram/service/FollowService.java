@@ -2,6 +2,7 @@ package com.social.instagram.service;
 
 import com.social.instagram.domain.Follow;
 import com.social.instagram.repository.FollowRepository;
+import com.social.instagram.service.firebase.FirebaseService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -10,7 +11,7 @@ import org.springframework.stereotype.Service;
 public class FollowService {
 
     private final FollowRepository followRepository;
-    private final PushMessageService firebaseService;
+    private final FirebaseService firebaseService;
 
     public void follow(Follow follow) {
         followRepository.save(follow);
