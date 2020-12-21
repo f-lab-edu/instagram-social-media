@@ -4,7 +4,7 @@ import com.social.instagram.domain.Follow;
 
 import java.util.concurrent.Future;
 
-public interface FirebaseService {
+public interface PushService {
 
     Future<String> sendAsyncMessage(Follow follow);
 
