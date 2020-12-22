@@ -1,21 +1,21 @@
-package com.social.instagram.service;
+package com.social.instagram.factory;
 
 import com.google.firebase.messaging.Message;
 import com.google.firebase.messaging.Notification;
 import com.social.instagram.domain.Follow;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Service;
+import org.springframework.context.annotation.Configuration;
 
-@Service
-public class MessageService {
+@Configuration
+public class PushMessageFactory {
 
     private final String firebaseToken;
     private final String messageTitle;
     private final String messageBody;
 
-    public MessageService(@Value("${firebase.token}") final String firebaseToken,
-                          @Value("${firebase.title}") final String messageTitle,
-                          @Value("${firebase.body}") final String messageBody) {
+    public PushMessageFactory(@Value("${firebase.token}") final String firebaseToken,
+                              @Value("${firebase.title}") final String messageTitle,
+                              @Value("${firebase.body}") final String messageBody) {
         this.firebaseToken = firebaseToken;
         this.messageTitle = messageTitle;
         this.messageBody = messageBody;
