@@ -1,5 +1,6 @@
 package com.social.instagram.domain;
 
+import com.social.instagram.domain.time.BaseTimeEntity;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -13,23 +14,29 @@ import javax.persistence.Id;
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class ReplyNiceClick {
+public class Comment extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    private long post_id;
+    private long postId;
 
     private String userId;
 
-    private String niceClickUserId;
+    private String comment;
+
+    private long nice;
+
+    private boolean reply;
 
     @Builder
-    public ReplyNiceClick(long post_id, String userId, String niceClickUserId) {
-        this.post_id = post_id;
+    public Comment(long postId, String userId, String comment, long nice, boolean reply) {
+        this.postId = postId;
         this.userId = userId;
-        this.niceClickUserId = niceClickUserId;
+        this.comment = comment;
+        this.nice = nice;
+        this.reply = reply;
     }
 
 }
