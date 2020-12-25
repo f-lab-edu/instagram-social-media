@@ -43,7 +43,6 @@ public class Comment extends BaseTimeEntity {
     public static Comment from(CommentRequestDto commentRequestDto) {
         return Comment.builder()
                 .postId(commentRequestDto.getPostId())
-                .userId(commentRequestDto.getUserId())
                 .comment(commentRequestDto.getComment())
                 .build();
     }
