@@ -13,7 +13,6 @@ import static com.social.instagram.util.httpstatus.ResponseConstants.RESPONSE_US
 import static com.social.instagram.util.httpstatus.ResponseConstants.RESPONSE_USER_UNAUTHORIZED;
 import static com.social.instagram.util.httpstatus.ResponseConstants.RESPONSE_AWS_S3_FILE_NOT_UPLOAD;
 import static com.social.instagram.util.httpstatus.ResponseConstants.RESPONSE_FOLLOW_NOT_DELETE;
-import static com.social.instagram.util.httpstatus.ResponseConstants.RESPONSE_COMMENT_BAD_REQUEST;
 
 /*
     @ControllerAdvice
@@ -62,13 +61,6 @@ public class ApiExceptionHandler {
     public ResponseEntity<String> handleFollowNotDeleteException(FollowOperationFailedException exception) {
         log.error("팔로우 취소가 실패 했습니다", exception);
         return RESPONSE_FOLLOW_NOT_DELETE;
-    }
-
-    @ExceptionHandler(CommentValidatedFailException.class)
-    public ResponseEntity<String> handleCommentValidatedFailException(
-            CommentValidatedFailException exception) {
-        log.error("CommentRequestDto 값을 확인하세요", exception);
-        return RESPONSE_COMMENT_BAD_REQUEST;
     }
 
 }

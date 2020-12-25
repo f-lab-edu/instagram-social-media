@@ -40,9 +40,10 @@ public class Comment extends BaseTimeEntity {
         this.reply = reply;
     }
 
-    public static Comment from(CommentRequestDto commentRequestDto) {
+    public static Comment from(CommentRequestDto commentRequestDto, String userId) {
         return Comment.builder()
                 .postId(commentRequestDto.getPostId())
+                .userId(userId)
                 .comment(commentRequestDto.getComment())
                 .build();
     }
