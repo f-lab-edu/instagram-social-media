@@ -52,7 +52,7 @@ class CommentServiceTest {
 
         commentService.comment(commentRequestDto);
 
-        assertThat(sessionService.getUserId(), equalTo(USER_ID));
+        verify(sessionService).getUserId();
         verify(commentRepository).save(any());
     }
 
