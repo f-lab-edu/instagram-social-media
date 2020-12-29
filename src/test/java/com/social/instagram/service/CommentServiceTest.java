@@ -4,14 +4,13 @@ import com.social.instagram.domain.Comment;
 import com.social.instagram.dto.request.CommentRequestDto;
 import com.social.instagram.repository.CommentRepository;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.equalTo;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.verify;
@@ -46,6 +45,7 @@ class CommentServiceTest {
     }
 
     @Test
+    @DisplayName("댓글을 데이터베이스에 저장한다")
     public void commentSuccessSave() {
         given(sessionService.getUserId()).willReturn(USER_ID);
         given(commentRepository.save(any())).willReturn(comment);
