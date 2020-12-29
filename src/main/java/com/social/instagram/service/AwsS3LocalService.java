@@ -25,7 +25,7 @@ public class AwsS3LocalService implements AwsS3Service {
         this.bucket = bucket;
     }
 
-    public String upload(MultipartFile file, String userId){
+    public String upload(MultipartFile file, String userId) {
         String bucketName = bucket + userId;
         String fileName = file.getOriginalFilename();
 
