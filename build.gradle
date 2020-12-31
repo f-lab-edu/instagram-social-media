@@ -66,6 +66,9 @@ dependencies {
     compileOnly 'org.projectlombok:lombok'
     runtimeOnly 'mysql:mysql-connector-java'
     annotationProcessor 'org.projectlombok:lombok'
+
+    testCompile group: 'org.mockito', name: 'mockito-inline', version: '2.7.21'
+
     testImplementation('org.springframework.boot:spring-boot-starter-test') {
         exclude module: 'junit-platform-commons'
     }
