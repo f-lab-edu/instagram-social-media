@@ -12,8 +12,11 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.net.MalformedURLException;
 import java.net.URL;
 
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.equalTo;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.BDDMockito.given;
@@ -36,6 +39,8 @@ class AwsS3LocalServiceTest {
     private static final String CONTENT_TYPE = "image/jpeg";
     private static final byte[] CONTENT_STREAM = ORIGINAL_FILE_NAME.getBytes();
     private static final String USER_ID = "testId";
+    private static final String AWS_URL =
+            "https://s3.ap-northeast-2.amazonaws.com/instagram-image-post/testId/picture.jpeg";
 
     @BeforeEach
     public void setUp() {
@@ -44,14 +49,15 @@ class AwsS3LocalServiceTest {
 
     @Test
     @DisplayName("사진을 S3에 저장하고 해당 사진 URL을 반환한다")
-    public void getPictureUrlAfterS3Save() {
+    public void getPictureUrlAfterS3Save() throws MalformedURLException {
+        URL awsS3Url = new URL(AWS_URL);
         given(amazonS3Client.putObject(any())).willReturn(mock(PutObjectResult.class));
-        given(amazonS3Client.getUrl(anyString(), anyString())).willReturn(mock(URL.class));
+        given(amazonS3Client.getUrl(anyString(), anyString())).willReturn(awsS3Url);
 
-        awsS3LocalService.upload(file, USER_ID);
+        String resultUrl = awsS3LocalService.upload(file, USER_ID);
 
         verify(amazonS3Client).putObject(any());
-        verify(amazonS3Client).getUrl(anyString(), anyString());
+        assertThat(resultUrl, equalTo(awsS3Url.toString()));
     }
 
 }
