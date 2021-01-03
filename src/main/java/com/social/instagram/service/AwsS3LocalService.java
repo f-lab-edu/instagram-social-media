@@ -1,5 +1,6 @@
 package com.social.instagram.service;
 
+import com.amazonaws.AmazonServiceException;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.model.CannedAccessControlList;
 import com.amazonaws.services.s3.model.ObjectMetadata;
@@ -32,7 +33,7 @@ public class AwsS3LocalService implements AwsS3Service {
         try(InputStream inputStream = file.getInputStream()) {
             amazonS3Client.putObject(new PutObjectRequest(bucketName, fileName, inputStream, getContentTypeAndLength(file))
                     .withCannedAcl(CannedAccessControlList.PublicRead));
-        } catch (IOException e) {
+        } catch (IOException | AmazonServiceException e) {
             throw new AwsS3FileNotUploadException();
         }
 

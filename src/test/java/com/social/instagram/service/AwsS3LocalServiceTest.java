@@ -1,7 +1,9 @@
 package com.social.instagram.service;
 
+import com.amazonaws.AmazonServiceException;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.model.PutObjectResult;
+import com.social.instagram.exception.AwsS3FileNotUploadException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -17,6 +19,7 @@ import java.net.URL;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.BDDMockito.given;
@@ -58,6 +61,15 @@ class AwsS3LocalServiceTest {
 
         verify(amazonS3Client).putObject(any());
         assertThat(resultUrl, equalTo(awsS3Url.toString()));
+    }
+
+    @Test
+    @DisplayName("S3에 장애가 나면 AmazonServiceException이 발생하고 AwsS3FileNotUploadException를 던진다")
+    public void throwAwsS3FileNotUploadExceptionWhenS3Barrier() {
+        given(amazonS3Client.putObject(any())).willThrow(AmazonServiceException.class);
+
+        assertThrows(AwsS3FileNotUploadException.class,
+                () -> awsS3LocalService.upload(file, USER_ID));
     }
 
 }
