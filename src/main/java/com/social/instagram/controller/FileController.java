@@ -6,11 +6,14 @@ import com.social.instagram.service.AwsS3Service;
 import com.social.instagram.service.PostService;
 import com.social.instagram.service.SessionService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
+import org.springframework.http.HttpStatus;
 
-import static com.social.instagram.util.httpstatus.ResponseConstants.RESPONSE_ENTITY_CREATE;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.multipart.MultipartFile;
 
 @RestController
 @RequiredArgsConstructor
@@ -23,13 +26,12 @@ public class FileController {
 
     @PostMapping
     @LoginValidation
-    public ResponseEntity<Void> upload(@RequestBody MultipartFile file){
+    @ResponseStatus(HttpStatus.CREATED)
+    public void upload(@RequestBody MultipartFile file) {
         String userId = sessionService.getUserId();
         String filePath = awsS3Service.upload(file, userId);
 
         postService.writePost(Post.changePostEntity(filePath, userId));
-
-        return RESPONSE_ENTITY_CREATE;
     }
 
 }
