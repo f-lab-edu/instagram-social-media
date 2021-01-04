@@ -45,7 +45,7 @@ class CommentServiceTest {
     }
 
     @Test
-    @DisplayName("레디스에 ID를 가져오고 댓글DTO를 도메인으로 변경 후 댓글 저장에 성공한다")
+    @DisplayName("현재 로그인된 유저의 ID로 댓글을 저장소에 저장한다")
     public void commentSuccessSave() {
         given(sessionService.getUserId()).willReturn(USER_ID);
         given(commentRepository.save(any())).willReturn(comment);
