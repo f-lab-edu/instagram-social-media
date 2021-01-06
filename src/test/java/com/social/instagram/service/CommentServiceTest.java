@@ -45,8 +45,8 @@ class CommentServiceTest {
     }
 
     @Test
-    @DisplayName("현재 로그인된 유저의 ID로 댓글을 저장소에 저장한다")
-    public void commentSuccessSave() {
+    @DisplayName("로그인된 유저 ID로 작성한 댓글을 저장소에 저장한다")
+    public void saveDatabaseWhenLoggedInUserIdCommentWrite() {
         given(sessionService.getUserId()).willReturn(USER_ID);
         given(commentRepository.save(any())).willReturn(comment);
 
