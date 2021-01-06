@@ -3,6 +3,7 @@ package com.social.instagram.service;
 import com.amazonaws.AmazonServiceException;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.model.PutObjectResult;
+import com.social.instagram.exception.AwsS3FileAccessFailedException;
 import com.social.instagram.exception.AwsS3FileNotUploadException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -14,6 +15,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 
@@ -23,14 +25,16 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.BDDMockito.given;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 class AwsS3LocalServiceTest {
 
     @Mock
     private AmazonS3 amazonS3Client;
+
+    @Mock
+    private MultipartFile mockFile;
 
     @InjectMocks
     private AwsS3LocalService awsS3LocalService;
@@ -69,7 +73,17 @@ class AwsS3LocalServiceTest {
         given(amazonS3Client.putObject(any())).willThrow(AmazonServiceException.class);
 
         assertThrows(AwsS3FileNotUploadException.class,
-                () -> awsS3LocalService.upload(file, USER_ID));
+                () -> awsS3LocalService.upload(mockFile, USER_ID));
+    }
+
+    @Test
+    @DisplayName("S3 업로드시 파일에 접근할 수 없다면 IOException이 발생하고 AwsS3FileAccessFailedException를 던진다")
+    public void throwDwAwsS3FileAccessFailedExceptionWhenS3FileFailedAccess()
+            throws IOException {
+        given(mockFile.getInputStream()).willThrow(IOException.class);
+
+        assertThrows(AwsS3FileAccessFailedException.class,
+                () -> awsS3LocalService.upload(mockFile, USER_ID));
     }
 
 }

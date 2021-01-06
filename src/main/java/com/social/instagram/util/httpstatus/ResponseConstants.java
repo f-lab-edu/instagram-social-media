@@ -25,4 +25,8 @@ public class ResponseConstants {
 
     public static final ResponseEntity<String> RESPONSE_FOLLOW_NOT_DELETE =
             new ResponseEntity<>("팔로우 취소가 실패 했습니다", HttpStatus.INTERNAL_SERVER_ERROR);
+
+    public static final ResponseEntity<String> RESPONSE_AWS_S3_FILE_FAIL_ACCESS =
+            new ResponseEntity<>("S3 업로드 작업시 파일에 대한 엑세스가 실패 했습니다",
+                    HttpStatus.INTERNAL_SERVER_ERROR);
 }
