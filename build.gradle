@@ -61,6 +61,8 @@ dependencies {
     compile group: 'org.springframework.kafka', name: 'spring-kafka', version: '2.5.0.RELEASE'
     compile group: 'org.apache.kafka', name: 'kafka-clients', version: '2.5.0'
 
+    implementation 'com.google.firebase:firebase-admin:7.0.1'
+
     compileOnly 'org.projectlombok:lombok'
     runtimeOnly 'mysql:mysql-connector-java'
     annotationProcessor 'org.projectlombok:lombok'
