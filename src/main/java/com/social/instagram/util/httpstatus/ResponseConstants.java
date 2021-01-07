@@ -25,4 +25,5 @@ public class ResponseConstants {
 
     public static final ResponseEntity<String> RESPONSE_FOLLOW_NOT_DELETE =
             new ResponseEntity<>("팔로우 취소가 실패 했습니다", HttpStatus.INTERNAL_SERVER_ERROR);
+  
 }
