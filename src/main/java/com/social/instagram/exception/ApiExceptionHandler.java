@@ -62,5 +62,5 @@ public class ApiExceptionHandler {
         log.error("팔로우 취소가 실패 했습니다", exception);
         return RESPONSE_FOLLOW_NOT_DELETE;
     }
-    
+
 }
