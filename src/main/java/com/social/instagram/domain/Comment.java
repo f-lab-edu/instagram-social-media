@@ -1,6 +1,7 @@
 package com.social.instagram.domain;
 
 import com.social.instagram.domain.time.BaseTimeEntity;
+import com.social.instagram.dto.request.CommentRequestDto;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -37,6 +38,14 @@ public class Comment extends BaseTimeEntity {
         this.comment = comment;
         this.nice = nice;
         this.reply = reply;
+    }
+  
+    public static Comment from(CommentRequestDto commentRequestDto, String userId) {
+        return Comment.builder()
+                .postId(commentRequestDto.getPostId())
+                .userId(userId)
+                .comment(commentRequestDto.getComment())
+                .build();
     }
 
 }
