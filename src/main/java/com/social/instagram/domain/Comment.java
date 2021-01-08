@@ -39,7 +39,7 @@ public class Comment extends BaseTimeEntity {
         this.nice = nice;
         this.reply = reply;
     }
-  
+
     public static Comment from(CommentRequestDto commentRequestDto, String userId) {
         return Comment.builder()
                 .postId(commentRequestDto.getPostId())

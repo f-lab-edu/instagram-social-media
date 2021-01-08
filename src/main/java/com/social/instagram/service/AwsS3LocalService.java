@@ -1,9 +1,11 @@
 package com.social.instagram.service;
 
+import com.amazonaws.AmazonServiceException;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.model.CannedAccessControlList;
 import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.amazonaws.services.s3.model.PutObjectRequest;
+import com.social.instagram.exception.AwsS3FileAccessFailedException;
 import com.social.instagram.exception.AwsS3FileNotUploadException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -25,15 +27,17 @@ public class AwsS3LocalService implements AwsS3Service {
         this.bucket = bucket;
     }
 
-    public String upload(MultipartFile file, String userId){
+    public String upload(MultipartFile file, String userId) {
         String bucketName = bucket + userId;
         String fileName = file.getOriginalFilename();
 
         try(InputStream inputStream = file.getInputStream()) {
             amazonS3Client.putObject(new PutObjectRequest(bucketName, fileName, inputStream, getContentTypeAndLength(file))
                     .withCannedAcl(CannedAccessControlList.PublicRead));
-        } catch (IOException e) {
+        } catch (AmazonServiceException e) {
             throw new AwsS3FileNotUploadException();
+        } catch (IOException e) {
+            throw new AwsS3FileAccessFailedException();
         }
 
         log.debug("file name : '{}' upload success!", fileName);
