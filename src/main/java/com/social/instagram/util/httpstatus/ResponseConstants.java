@@ -21,7 +21,7 @@ public class ResponseConstants {
             new ResponseEntity<>("유저에 대한 정보를 찾지 못했습니다. 로그인을 해주세요", HttpStatus.UNAUTHORIZED);
 
     public static final ResponseEntity<String> RESPONSE_AWS_S3_FILE_NOT_UPLOAD =
-            new ResponseEntity<>("aws s3에 파일 업로드가 실패했습니다.", HttpStatus.INTERNAL_SERVER_ERROR);
+            new ResponseEntity<>("문제가 발생하여 다시 요청을 보내주세요", HttpStatus.INTERNAL_SERVER_ERROR);
 
     public static final ResponseEntity<String> RESPONSE_FOLLOW_NOT_DELETE =
             new ResponseEntity<>("팔로우 취소가 실패 했습니다", HttpStatus.INTERNAL_SERVER_ERROR);
