@@ -23,7 +23,7 @@ public class FileController {
 
     @PostMapping
     @LoginValidation
-    public ResponseEntity<Void> upload(@RequestBody MultipartFile file){
+    public ResponseEntity<Void> upload(@RequestBody MultipartFile file) {
         String userId = loginService.getUserId();
         String filePath = awsS3Service.upload(file, userId);
 

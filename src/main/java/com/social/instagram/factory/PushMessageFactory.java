@@ -20,8 +20,8 @@ public class PushMessageFactory {
         this.messageTitle = messageTitle;
         this.messageBody = messageBody;
     }
-
-    public Message from(Follow follow) {
+  
+    public Message getMessage(Follow follow) {
         return Message.builder()
                 .setToken(firebaseToken)
                 .setNotification(Notification.builder()
