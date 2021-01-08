@@ -11,10 +11,10 @@ import org.springframework.stereotype.Service;
 public class CommentService {
 
     private final CommentRepository commentRepository;
-    private final SessionService sessionService;
+    private final LoginService loginService;
 
     public void comment(CommentRequestDto commentRequestDto) {
-        commentRepository.save(Comment.from(commentRequestDto, sessionService.getUserId()));
+        commentRepository.save(Comment.from(commentRequestDto, loginService.getUserId()));
     }
 
 }

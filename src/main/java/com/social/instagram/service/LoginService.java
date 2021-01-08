@@ -21,7 +21,7 @@ import static com.social.instagram.util.session.SessionKeyConstants.USER_ID;
 */
 @Service
 @RequiredArgsConstructor
-public class SessionService {
+public class LoginService {
 
     private final HttpSession session;
 
