@@ -22,7 +22,7 @@ class CommentServiceTest {
     private CommentRepository commentRepository;
 
     @Mock
-    private SessionService sessionService;
+    private LoginService loginService;
 
     @Mock
     private Comment comment;
@@ -45,14 +45,14 @@ class CommentServiceTest {
     }
 
     @Test
-    @DisplayName("댓글을 데이터베이스에 저장한다")
-    public void commentSuccessSave() {
-        given(sessionService.getUserId()).willReturn(USER_ID);
+    @DisplayName("로그인된 유저 ID로 작성한 댓글을 저장소에 저장한다")
+    public void saveDatabaseWhenLoggedInUserIdCommentWrite() {
+        given(loginService.getUserId()).willReturn(USER_ID);
         given(commentRepository.save(any())).willReturn(comment);
 
         commentService.comment(commentRequestDto);
 
-        verify(sessionService).getUserId();
+        verify(loginService).getUserId();
         verify(commentRepository).save(any());
     }
 

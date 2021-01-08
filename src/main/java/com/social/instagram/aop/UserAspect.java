@@ -1,7 +1,7 @@
 package com.social.instagram.aop;
 
 import com.social.instagram.exception.UserNotLoginException;
-import com.social.instagram.service.SessionService;
+import com.social.instagram.service.LoginService;
 import lombok.RequiredArgsConstructor;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
@@ -20,11 +20,11 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class UserAspect {
 
-    private final SessionService sessionService;
+    private final LoginService loginService;
 
     @Before("@annotation(com.social.instagram.annotation.LoginValidation)")
     public void validateLogin() {
-        Optional.ofNullable(sessionService.getUserId())
+        Optional.ofNullable(loginService.getUserId())
                 .orElseThrow(UserNotLoginException::new);
     }
 

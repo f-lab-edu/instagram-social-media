@@ -16,7 +16,7 @@ public class WebPushService implements PushService {
 
     @Override
     public Future<String> sendAsyncMessage(Follow follow) {
-        return FirebaseMessaging.getInstance().sendAsync(pushMessageFactory.from(follow));
+        return FirebaseMessaging.getInstance().sendAsync(pushMessageFactory.getMessage(follow));
     }
 
 }

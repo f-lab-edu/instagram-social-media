@@ -3,7 +3,7 @@ package com.social.instagram.controller;
 import com.social.instagram.dto.LoginDto;
 import com.social.instagram.factory.EncryptionFactory;
 import com.social.instagram.service.AccountService;
-import com.social.instagram.service.SessionService;
+import com.social.instagram.service.LoginService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,7 +19,7 @@ import static com.social.instagram.util.httpstatus.ResponseConstants.RESPONSE_EN
 public class LoginController {
 
     private final EncryptionFactory encryptionFactory;
-    private final SessionService sessionService;
+    private final LoginService loginService;
     private final AccountService accountService;
 
     @PostMapping("/login")
@@ -29,14 +29,14 @@ public class LoginController {
 
         accountService.validateHasAccount(userId, password);
 
-        sessionService.createUserId(userId);
+        loginService.createUserId(userId);
 
         return RESPONSE_ENTITY_OK;
     }
 
     @PostMapping("/logout")
     public ResponseEntity<Void> logout() {
-        sessionService.removeUserId();
+        loginService.removeUserId();
 
         return RESPONSE_ENTITY_OK;
     }

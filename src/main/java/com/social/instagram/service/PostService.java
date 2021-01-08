@@ -29,16 +29,16 @@ import java.util.stream.Stream;
 public class PostService {
 
     private final PostRepository postRepository;
-    private final SessionService sessionService;
+    private final LoginService loginService;
     private final PostNiceRepository postNiceRepository;
     private final KafkaTemplate<String, Long> kafkaTemplate;
     private final String niceTopic;
 
-    public PostService(final PostRepository postRepository, final SessionService sessionService,
+    public PostService(final PostRepository postRepository, final LoginService loginService,
                        final PostNiceRepository postNiceRepository, final KafkaTemplate<String, Long> kafkaTemplate,
                        @Value("${kafka.topic.type.nice}") final String niceTopic) {
         this.postRepository = postRepository;
-        this.sessionService = sessionService;
+        this.loginService = loginService;
         this.postNiceRepository = postNiceRepository;
         this.kafkaTemplate = kafkaTemplate;
         this.niceTopic = niceTopic;
@@ -53,7 +53,7 @@ public class PostService {
     }
 
     public void updateComment(PostDto postDto) {
-        postRepository.updateComment(getId(sessionService.getUserId()), postDto.getComment());
+        postRepository.updateComment(getId(loginService.getUserId()), postDto.getComment());
     }
 
     @Cacheable(value = "feedsPerUser", key = "#userId")
