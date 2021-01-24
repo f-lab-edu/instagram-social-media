@@ -55,7 +55,7 @@ class CommentServiceTest {
         verify(loginService).getUserId();
         verify(commentRepository).save(any());
 
-        //feature/ciasd
+        //feature/ci
     }
 
 }
