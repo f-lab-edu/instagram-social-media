@@ -1,6 +1,7 @@
 package com.social.instagram.controller;
 
 import com.social.instagram.domain.Follow;
+import com.social.instagram.dto.request.FollowRequestDto;
 import com.social.instagram.service.FollowService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -21,14 +22,14 @@ public class FollowController {
     private final FollowService followService;
 
     @PostMapping
-    public ResponseEntity<Void> follow(@RequestBody Follow follow) {
-        followService.follow(follow);
+    public ResponseEntity<Void> follow(@RequestBody FollowRequestDto followRequestDto) {
+        followService.follow(Follow.from(followRequestDto));
 
         return RESPONSE_ENTITY_CREATE;
     }
 
     @DeleteMapping
-    public ResponseEntity<Void>cancelFollow(@RequestBody Follow follow) {
+    public ResponseEntity<Void> cancelFollow(@RequestBody Follow follow) {
         followService.cancelFollow(follow);
 
         return RESPONSE_ENTITY_CREATE;
