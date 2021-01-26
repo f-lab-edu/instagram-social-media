@@ -1,5 +1,6 @@
 package com.social.instagram.domain;
 
+import com.social.instagram.dto.request.FollowRequestDto;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -29,10 +30,10 @@ public class Follow {
         this.followId = followId;
     }
 
-    public static Follow from(String userId, String followId) {
+    public static Follow from(FollowRequestDto followRequestDto) {
         return Follow.builder()
-                .userId(userId)
-                .followId(followId)
+                .userId(followRequestDto.getUserId())
+                .followId(followRequestDto.getFollowId())
                 .build();
     }
 
