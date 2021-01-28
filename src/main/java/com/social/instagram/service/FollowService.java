@@ -12,14 +12,15 @@ public class FollowService {
 
     private final FollowRepository followRepository;
     private final PushService firebaseService;
+    private final LoginService loginService;
 
     public void follow(Follow follow) {
         followRepository.save(follow);
         firebaseService.sendAsyncMessage(follow);
     }
 
-    public void cancelFollow(Follow follow) {
-        followRepository.deleteByUserIdAndFollowId(follow.getUserId(), follow.getFollowId());
+    public void cancelFollow(String followId) {
+        followRepository.deleteByUserIdAndFollowId(loginService.getUserId(), followId);
     }
 
 }
