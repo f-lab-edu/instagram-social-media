@@ -8,11 +8,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 
 import static com.social.instagram.util.httpstatus.ResponseConstants.RESPONSE_ENTITY_CREATE;
+import static com.social.instagram.util.httpstatus.ResponseConstants.RESPONSE_ENTITY_OK;
 
 @RestController
 @RequiredArgsConstructor
@@ -29,10 +31,10 @@ public class FollowController {
     }
 
     @DeleteMapping
-    public ResponseEntity<Void> cancelFollow(@RequestBody Follow follow) {
-        followService.cancelFollow(follow);
+    public ResponseEntity<Void> cancelFollow(@RequestParam String followId) {
+        followService.cancelFollow(followId);
 
-        return RESPONSE_ENTITY_CREATE;
+        return RESPONSE_ENTITY_OK;
     }
 
 }
