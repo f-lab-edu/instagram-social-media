@@ -14,7 +14,9 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.util.concurrent.CompletableFuture;
 
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.verify;
 
 @ExtendWith(MockitoExtension.class)
@@ -25,6 +27,9 @@ class FollowServiceTest {
 
     @Mock
     private PushService firebaseService;
+
+    @Mock
+    private LoginService loginService;
 
     @InjectMocks
     private FollowService followService;
@@ -53,6 +58,19 @@ class FollowServiceTest {
 
         verify(followRepository).save(any());
         verify(firebaseService).sendAsyncMessage(any());
+    }
+
+    @Test
+    @DisplayName("팔로우를 취소한다")
+   public void cancelFollowId() {
+        given(loginService.getUserId()).willReturn(USER_ID);
+        doNothing().when(followRepository)
+                .deleteByUserIdAndFollowId(anyString(), anyString());
+
+        followService.cancelFollow(FOLLOW_ID);
+
+        verify(loginService).getUserId();
+        verify(followRepository).deleteByUserIdAndFollowId(anyString(), anyString());
     }
 
 }
