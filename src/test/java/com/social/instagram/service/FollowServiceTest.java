@@ -1,6 +1,7 @@
 package com.social.instagram.service;
 
 import com.social.instagram.domain.Follow;
+import com.social.instagram.exception.UserNotLoginException;
 import com.social.instagram.repository.FollowRepository;
 import com.social.instagram.service.firebase.PushService;
 import org.junit.jupiter.api.BeforeEach;
@@ -13,6 +14,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.concurrent.CompletableFuture;
 
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.BDDMockito.given;
@@ -71,6 +73,15 @@ class FollowServiceTest {
 
         verify(loginService).getUserId();
         verify(followRepository).deleteByUserIdAndFollowId(anyString(), anyString());
+    }
+
+    @Test
+    @DisplayName("유저의 세션이 만료된 상태에 팔로우 삭제시 UserNotLoginException을 던진다")
+    public void throwUserNotLoginExceptionFollowCancelWhenUserExpire() {
+        given(loginService.getUserId()).willThrow(UserNotLoginException.class);
+
+        assertThrows(UserNotLoginException.class, () ->
+                followService.cancelFollow(FOLLOW_ID));
     }
 
 }

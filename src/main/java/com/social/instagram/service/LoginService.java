@@ -1,9 +1,12 @@
 package com.social.instagram.service;
 
+import com.social.instagram.exception.UserNotLoginException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpSession;
+
+import java.util.Optional;
 
 import static com.social.instagram.util.session.SessionKeyConstants.USER_ID;
 
@@ -34,7 +37,8 @@ public class LoginService {
     }
 
     public String getUserId() {
-        return (String) session.getAttribute(USER_ID);
+        return (String) Optional.ofNullable(session.getAttribute(USER_ID))
+                .orElseThrow(UserNotLoginException::new);
     }
 
 }
