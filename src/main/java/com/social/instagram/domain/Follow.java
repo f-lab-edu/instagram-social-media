@@ -29,7 +29,7 @@ public class Follow {
         this.followId = followId;
     }
 
-    public static Follow of(String userId, String followId) {
+    public static Follow from(String userId, String followId) {
         return Follow.builder()
                 .userId(userId)
                 .followId(followId)
