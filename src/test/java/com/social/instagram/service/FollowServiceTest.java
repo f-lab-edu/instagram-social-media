@@ -56,15 +56,24 @@ class FollowServiceTest {
         given(firebaseService.sendAsyncMessage(any()))
                 .willReturn(CompletableFuture.completedFuture(MESSAGE));
 
-        followService.follow(follow);
+        followService.follow(FOLLOW_ID);
 
         verify(followRepository).save(any());
         verify(firebaseService).sendAsyncMessage(any());
     }
 
     @Test
+    @DisplayName("유저의 세션이 만료된 상태에서 팔로우 할시 UserNotLoginException을 던진다")
+    public void throwUserNotLoginExceptionFollowWhenUserExpire() {
+        given(loginService.getUserId()).willThrow(UserNotLoginException.class);
+
+        assertThrows(UserNotLoginException.class, () ->
+                followService.follow(FOLLOW_ID));
+    }
+
+    @Test
     @DisplayName("팔로우를 취소한다")
-   public void cancelFollowId() {
+    public void cancelFollowId() {
         given(loginService.getUserId()).willReturn(USER_ID);
         doNothing().when(followRepository)
                 .deleteByUserIdAndFollowId(anyString(), anyString());
