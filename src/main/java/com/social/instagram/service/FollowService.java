@@ -15,7 +15,7 @@ public class FollowService {
     private final LoginService loginService;
 
     public void follow(String followId) {
-        Follow follow = Follow.of(loginService.getUserId(), followId);
+        Follow follow = Follow.from(loginService.getUserId(), followId);
 
         followRepository.save(follow);
         firebaseService.sendAsyncMessage(follow);
