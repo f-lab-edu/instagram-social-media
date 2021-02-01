@@ -37,7 +37,6 @@ public class PostController {
         return RESPONSE_ENTITY_CREATE;
     }
 
-    //todo 질문
     @GetMapping
     public ResponseEntity<List<PostResponseDto>> getPost(@RequestParam String userId,
                 @PageableDefault(sort = "id", direction = Sort.Direction.DESC) Pageable pageable) {
