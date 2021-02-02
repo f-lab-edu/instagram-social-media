@@ -1,7 +1,6 @@
 package com.social.instagram.dto.response;
 
 import com.social.instagram.domain.Post;
-import com.social.instagram.domain.PostNice;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
