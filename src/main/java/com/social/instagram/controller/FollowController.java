@@ -1,17 +1,17 @@
 package com.social.instagram.controller;
 
-import com.social.instagram.domain.Follow;
 import com.social.instagram.service.FollowService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 
 import static com.social.instagram.util.httpstatus.ResponseConstants.RESPONSE_ENTITY_CREATE;
+import static com.social.instagram.util.httpstatus.ResponseConstants.RESPONSE_ENTITY_OK;
 
 @RestController
 @RequiredArgsConstructor
@@ -20,18 +20,18 @@ public class FollowController {
 
     private final FollowService followService;
 
-    @PostMapping
-    public ResponseEntity<Void> follow(@RequestBody Follow follow) {
-        followService.follow(follow);
+    @PostMapping("/{followId}")
+    public ResponseEntity<Void> follow(@PathVariable String followId) {
+        followService.follow(followId);
 
         return RESPONSE_ENTITY_CREATE;
     }
 
-    @DeleteMapping
-    public ResponseEntity<Void>cancelFollow(@RequestBody Follow follow) {
-        followService.cancelFollow(follow);
+    @DeleteMapping("/{followId}")
+    public ResponseEntity<Void> cancelFollow(@PathVariable String followId) {
+        followService.cancelFollow(followId);
 
-        return RESPONSE_ENTITY_CREATE;
+        return RESPONSE_ENTITY_OK;
     }
 
 }
