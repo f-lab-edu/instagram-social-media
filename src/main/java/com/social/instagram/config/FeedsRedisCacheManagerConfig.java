@@ -1,5 +1,6 @@
 package com.social.instagram.config;
 
+import com.social.instagram.converter.ObjectMapperConverter;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cache.CacheManager;
 import org.springframework.context.annotation.Bean;
@@ -24,13 +25,13 @@ public class FeedsRedisCacheManagerConfig {
     private final int redisPort;
     private final String feedsPerUserName;
     private final int feedsPerUserExpireMinute;
-    private final ObjectMapperConfig feedsObjectMapper;
+    private final ObjectMapperConverter feedsObjectMapper;
 
     public FeedsRedisCacheManagerConfig(@Value("${spring.redis.cache.host}") final String redisHost,
                                         @Value("${spring.redis.cache.port}") final int redisPort,
                                         @Value("${feeds.per.user.name}") final String feedsPerUserName,
                                         @Value("${feeds.per.user.expire.minute}") final int feedsPerUserExpireMinute,
-                                        final ObjectMapperConfig feedsObjectMapper) {
+                                        final ObjectMapperConverter feedsObjectMapper) {
         this.redisHost = redisHost;
         this.redisPort = redisPort;
         this.feedsPerUserName = feedsPerUserName;
