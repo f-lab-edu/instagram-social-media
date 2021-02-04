@@ -33,7 +33,7 @@ public class Post extends BaseTimeEntity {
         this.filePath = filePath;
     }
 
-    public static Post changePostEntity(String filePath, String userId) {
+    public static Post from(String filePath, String userId) {
         return Post.builder()
                 .filePath(filePath)
                 .userId(userId)
