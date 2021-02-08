@@ -56,7 +56,6 @@ public class PostController {
     }
 
     @DeleteMapping
-    @ResponseStatus(HttpStatus.OK)
     public void deletePost(@RequestParam long id) {
         postService.deletePost(id);
     }
