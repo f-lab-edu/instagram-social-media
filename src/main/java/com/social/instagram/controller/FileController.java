@@ -31,7 +31,7 @@ public class FileController {
         String userId = loginService.getUserId();
         String filePath = awsS3Service.upload(file, userId);
 
-        postService.writePost(Post.changePostEntity(filePath, userId));
+        postService.writePost(Post.from(filePath, userId));
     }
 
 }

@@ -6,6 +6,7 @@ import com.social.instagram.dto.response.PostResponseDto;
 import com.social.instagram.repository.PostNiceRepository;
 import com.social.instagram.repository.PostRepository;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.util.Streamable;
@@ -44,6 +45,7 @@ public class PostService {
         this.niceTopic = niceTopic;
     }
 
+    @CacheEvict(value = "feedsPerUser", key = "#post.userId")
     public void writePost(Post post) {
         postRepository.save(post);
     }

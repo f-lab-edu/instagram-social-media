@@ -1,5 +1,6 @@
 package com.social.instagram.config;
 
+import com.social.instagram.converter.ObjectMapperConverter;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cache.CacheManager;
 import org.springframework.context.annotation.Bean;
@@ -20,17 +21,23 @@ import java.util.Map;
 @Configuration
 public class FeedsRedisCacheManagerConfig {
 
-    @Value("${spring.redis.cache.host}")
-    private String redisHost;
+    private final String redisHost;
+    private final int redisPort;
+    private final String feedsPerUserName;
+    private final int feedsPerUserExpireMinute;
+    private final ObjectMapperConverter feedsObjectMapper;
 
-    @Value("${spring.redis.cache.port}")
-    private int redisPort;
-
-    @Value("${feeds.per.user.name}")
-    private String feedsPerUserName;
-
-    @Value("${feeds.per.user.expire.minute}")
-    private int feedsPerUserExpireMinute;
+    public FeedsRedisCacheManagerConfig(@Value("${spring.redis.cache.host}") final String redisHost,
+                                        @Value("${spring.redis.cache.port}") final int redisPort,
+                                        @Value("${feeds.per.user.name}") final String feedsPerUserName,
+                                        @Value("${feeds.per.user.expire.minute}") final int feedsPerUserExpireMinute,
+                                        final ObjectMapperConverter feedsObjectMapper) {
+        this.redisHost = redisHost;
+        this.redisPort = redisPort;
+        this.feedsPerUserName = feedsPerUserName;
+        this.feedsPerUserExpireMinute = feedsPerUserExpireMinute;
+        this.feedsObjectMapper = feedsObjectMapper;
+    }
 
     @Bean
     public RedisConnectionFactory redisCacheConnectionFactory() {
@@ -53,7 +60,8 @@ public class FeedsRedisCacheManagerConfig {
                         .serializeKeysWith(
                                 RedisSerializationContext.SerializationPair.fromSerializer(new StringRedisSerializer()))
                         .serializeValuesWith(
-                                RedisSerializationContext.SerializationPair.fromSerializer(new GenericJackson2JsonRedisSerializer()))
+                                RedisSerializationContext.SerializationPair.fromSerializer(
+                                        new GenericJackson2JsonRedisSerializer(feedsObjectMapper.javaTimeObjectMapper())))
                         .entryTtl(Duration.ofMinutes(feedsPerUserExpireMinute)));
 
         return redisCacheMap;
