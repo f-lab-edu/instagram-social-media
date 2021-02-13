@@ -16,6 +16,7 @@ import javax.persistence.Id;
 public class PostNiceClick {
 
     @Id
+    //todo
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
