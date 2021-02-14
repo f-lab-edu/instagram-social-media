@@ -31,6 +31,9 @@ public class KafkaConsumerConfig {
     @Value("${kafka.fetch-max-wait-time}")
     private int fetchMaxWaitTime;
 
+    @Value("${kafka.trust-package}")
+    private String trustPackage;
+
     @Bean
     public ConsumerFactory<String, Long> consumerFactory() {
         Map<String, Object> consumerConfigMap = new HashMap<>();
@@ -38,6 +41,7 @@ public class KafkaConsumerConfig {
         consumerConfigMap.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, address);
         consumerConfigMap.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
         consumerConfigMap.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, JsonDeserializer.class);
+        consumerConfigMap.put(JsonDeserializer.TRUSTED_PACKAGES, trustPackage);
         consumerConfigMap.put(ConsumerConfig.MAX_POLL_RECORDS_CONFIG, batchMessageMax);
         consumerConfigMap.put(ConsumerConfig.FETCH_MIN_BYTES_CONFIG, fetchMinByteSize);
         consumerConfigMap.put(ConsumerConfig.FETCH_MAX_WAIT_MS_CONFIG, fetchMaxWaitTime);
