@@ -25,10 +25,10 @@ public class KafkaConsumerConfig {
     @Value("${kafka.batch.size}")
     private int batchMessageMax;
 
-    @Value("${kafka.fetch.min.bytes.size}")
+    @Value("${kafka.fetch-min-bytes-size}")
     private int fetchMinByteSize;
 
-    @Value("${kafka.fetch.max.wait.time}")
+    @Value("${kafka.fetch-max-wait-time}")
     private int fetchMaxWaitTime;
 
     @Bean
