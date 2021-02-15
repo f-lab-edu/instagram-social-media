@@ -2,6 +2,7 @@ package com.social.instagram.service;
 
 import com.social.instagram.domain.Post;
 import com.social.instagram.dto.PostDto;
+import com.social.instagram.dto.request.FeedNiceRequestDto;
 import com.social.instagram.dto.response.PostResponseDto;
 import com.social.instagram.repository.PostNiceRepository;
 import com.social.instagram.repository.PostRepository;
@@ -32,16 +33,17 @@ public class PostService {
     private final PostRepository postRepository;
     private final LoginService loginService;
     private final PostNiceRepository postNiceRepository;
-    private final KafkaTemplate<String, Long> kafkaTemplate;
+    private final KafkaTemplate<String, FeedNiceRequestDto> feedNiceKafkaTemplate;
     private final String niceTopic;
 
     public PostService(final PostRepository postRepository, final LoginService loginService,
-                       final PostNiceRepository postNiceRepository, final KafkaTemplate<String, Long> kafkaTemplate,
+                       final PostNiceRepository postNiceRepository,
+                       final KafkaTemplate<String, FeedNiceRequestDto> feedNiceKafkaTemplate,
                        @Value("${kafka.topic.type.nice}") final String niceTopic) {
         this.postRepository = postRepository;
         this.loginService = loginService;
         this.postNiceRepository = postNiceRepository;
-        this.kafkaTemplate = kafkaTemplate;
+        this.feedNiceKafkaTemplate = feedNiceKafkaTemplate;
         this.niceTopic = niceTopic;
     }
 
@@ -66,17 +68,14 @@ public class PostService {
                 .collect(Collectors.toList());
     }
 
-    public void updateNice(long id) {
-        kafkaTemplate.send(niceTopic, id);
+    public void updateFeedNice(FeedNiceRequestDto feedNiceRequestDto) {
+        feedNiceKafkaTemplate.send(niceTopic, feedNiceRequestDto);
     }
 
     @KafkaListener(topics = "${kafka.topic.type.nice}", groupId = "${kafka.topic.type.nice}",
-            containerFactory = "ListenerContainerFactory")
-    public void receiveNiceMessage(List<Long> niceMessage) {
-        for (long niceId : niceMessage) {
-            postNiceRepository.updateNice(niceId);
-        }
-
+            containerFactory = "feedNiceListenerContainerFactory")
+    public void receiveFeedNiceMessage(List<FeedNiceRequestDto> feedNiceMessage) {
+        //todo jdbc batchUpdate 구현한 메소드 선언, 해당 피드 좋아요 Redis 값 증가
     }
 
     public void deletePost(long id) {

@@ -1,5 +1,6 @@
 package com.social.instagram.config.kafka;
 
+import com.social.instagram.dto.request.FeedNiceRequestDto;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.common.serialization.StringSerializer;
 import org.springframework.beans.factory.annotation.Value;
@@ -20,7 +21,7 @@ public class KafkaProducerConfig {
     private String address;
 
     @Bean
-    public ProducerFactory<String, Long> producerFactory() {
+    public ProducerFactory<String, FeedNiceRequestDto> feedNiceProducerFactory() {
         Map<String, Object> producerConfigMap = new HashMap<>();
 
         producerConfigMap.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, address);
@@ -31,8 +32,8 @@ public class KafkaProducerConfig {
     }
 
     @Bean
-    public KafkaTemplate<String, Long> kafkaTemplate() {
-        return new KafkaTemplate<>(producerFactory());
+    public KafkaTemplate<String, FeedNiceRequestDto> feedNiceKafkaTemplate() {
+        return new KafkaTemplate<>(feedNiceProducerFactory());
     }
 
 }
