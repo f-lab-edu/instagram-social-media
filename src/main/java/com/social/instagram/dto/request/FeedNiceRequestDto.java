@@ -5,7 +5,7 @@ import lombok.Getter;
 @Getter
 public class FeedNiceRequestDto {
 
-    private long feedId;
+    private long postId;
 
     private String niceClickUserId;
 
