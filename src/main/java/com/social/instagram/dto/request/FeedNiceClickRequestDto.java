@@ -1,15 +1,16 @@
 package com.social.instagram.dto.request;
 
+import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 @Getter
-public class FeedNiceClickRequestDto {
-
-    private long postId;
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+public class FeedNiceClickRequestDto extends FeedNiceBatchRequestDto {
 
     private String niceClickUserId;
 
@@ -17,7 +18,11 @@ public class FeedNiceClickRequestDto {
 
     private static final long FEED_NICE_COUNT_ONE_INCREASE = 1;
 
-    public static Map<Long, Long> FeedNiceCountIncrease(List<FeedNiceClickRequestDto> feedNiceClickRequestDto) {
+    public FeedNiceClickRequestDto(long postId) {
+        super(postId);
+    }
+
+    public static Map<Long, Long> increaseFeedNiceCount(List<FeedNiceClickRequestDto> feedNiceClickRequestDto) {
         Map<Long, Long> feedNiceCount = new HashMap<>();
 
         for (FeedNiceClickRequestDto feedNice : feedNiceClickRequestDto) {

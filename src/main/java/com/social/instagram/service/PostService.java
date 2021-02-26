@@ -84,7 +84,7 @@ public class PostService {
     public void batchFeedNice(List<FeedNiceClickRequestDto> feedNiceMessage) {
         jdbcBatchService.batchInsert(JdbcConstants.POST_NICE_CLICK_QUERY, feedNiceMessage);
         jdbcBatchService.batchInsert(JdbcConstants.POST_NICE_QUERY,
-                FeedNiceRequestDto.from(FeedNiceClickRequestDto.FeedNiceCountIncrease(feedNiceMessage)));
+                FeedNiceRequestDto.from(FeedNiceClickRequestDto.increaseFeedNiceCount(feedNiceMessage)));
     }
 
     public void deletePost(long id) {

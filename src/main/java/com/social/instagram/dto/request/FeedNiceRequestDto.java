@@ -1,22 +1,23 @@
 package com.social.instagram.dto.request;
 
+import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 @Getter
-public class FeedNiceRequestDto {
-
-    private long postId;
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+public class FeedNiceRequestDto extends FeedNiceBatchRequestDto {
 
     private long nice;
 
     @Builder
     public FeedNiceRequestDto(long postId, long nice) {
-        this.postId = postId;
+        super(postId);
         this.nice = nice;
     }
 
