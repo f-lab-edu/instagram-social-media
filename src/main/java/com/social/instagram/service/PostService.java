@@ -6,7 +6,7 @@ import com.social.instagram.dto.request.FeedNiceClickRequestDto;
 import com.social.instagram.dto.request.FeedNiceRequestDto;
 import com.social.instagram.dto.response.PostResponseDto;
 import com.social.instagram.repository.PostRepository;
-import com.social.instagram.util.jdbc.JdbcFeedNiceQueryConstants;
+import com.social.instagram.util.query.FeedNiceQueries;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
@@ -82,8 +82,8 @@ public class PostService {
 
     @Transactional
     public void batchFeedNice(List<FeedNiceClickRequestDto> feedNiceMessage) {
-        jdbcBatchService.batchInsert(JdbcFeedNiceQueryConstants.POST_NICE_CLICK_QUERY, feedNiceMessage);
-        jdbcBatchService.batchInsert(JdbcFeedNiceQueryConstants.POST_NICE_QUERY,
+        jdbcBatchService.batchInsert(FeedNiceQueries.POST_NICE_CLICK_QUERY, feedNiceMessage);
+        jdbcBatchService.batchInsert(FeedNiceQueries.POST_NICE_QUERY,
                 FeedNiceRequestDto.from(FeedNiceClickRequestDto.increaseFeedNiceCount(feedNiceMessage)));
     }
 
