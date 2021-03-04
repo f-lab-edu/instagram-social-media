@@ -74,13 +74,13 @@ public class PostService {
         feedNiceKafkaTemplate.send(niceTopic, feedNiceClickRequestDto);
     }
 
+    @Transactional
     @KafkaListener(topics = "${kafka.topic.type.nice}", groupId = "${kafka.topic.type.nice}",
             containerFactory = "feedNiceListenerContainerFactory")
     public void receiveFeedNiceMessage(List<FeedNiceClickRequestDto> feedNiceMessage) {
         batchFeedNice(feedNiceMessage);
     }
 
-    @Transactional
     public void batchFeedNice(List<FeedNiceClickRequestDto> feedNiceMessage) {
         jdbcBatchService.batchInsert(FeedNiceQueries.POST_NICE_CLICK_QUERY, feedNiceMessage);
         jdbcBatchService.batchInsert(FeedNiceQueries.POST_NICE_QUERY,
