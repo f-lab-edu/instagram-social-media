@@ -2,7 +2,7 @@ package com.social.instagram.controller;
 
 import com.social.instagram.annotation.LoginValidation;
 import com.social.instagram.dto.PostDto;
-import com.social.instagram.dto.request.FeedNiceRequestDto;
+import com.social.instagram.dto.request.FeedNiceClickRequestDto;
 import com.social.instagram.dto.response.PostResponseDto;
 import com.social.instagram.service.PostService;
 import lombok.RequiredArgsConstructor;
@@ -48,8 +48,8 @@ public class PostController {
     }
 
     @PutMapping
-    public ResponseEntity<Void> updateNice(@RequestBody FeedNiceRequestDto feedNiceRequestDto) {
-        postService.updateFeedNice(feedNiceRequestDto);
+    public ResponseEntity<Void> updateNice(@RequestBody FeedNiceClickRequestDto feedNiceClickRequestDto) {
+        postService.updateFeedNice(feedNiceClickRequestDto);
 
         return RESPONSE_ENTITY_OK;
     }

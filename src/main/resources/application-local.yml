@@ -3,7 +3,7 @@ spring:
   #데이터베이스 연결해주는 설정
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/instagram?serverTimezone=UTC&characterEncoding=UTF-8
+    url: jdbc:mysql://localhost:3306/instagram?serverTimezone=UTC&characterEncoding=UTF-8&profileSQL=true&logger=Slf4JLogger&rewriteBatchedStatements=true
     username: root
     password: password
 

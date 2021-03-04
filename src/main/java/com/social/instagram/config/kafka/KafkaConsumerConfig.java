@@ -1,6 +1,6 @@
 package com.social.instagram.config.kafka;
 
-import com.social.instagram.dto.request.FeedNiceRequestDto;
+import com.social.instagram.dto.request.FeedNiceClickRequestDto;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.common.serialization.StringDeserializer;
 import org.springframework.beans.factory.annotation.Value;
@@ -36,7 +36,7 @@ public class KafkaConsumerConfig {
     private String trustPackage;
 
     @Bean
-    public ConsumerFactory<String, FeedNiceRequestDto> feedNiceConsumerFactory() {
+    public ConsumerFactory<String, FeedNiceClickRequestDto> feedNiceConsumerFactory() {
         Map<String, Object> consumerConfigMap = new HashMap<>();
 
         consumerConfigMap.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, address);
@@ -51,9 +51,9 @@ public class KafkaConsumerConfig {
     }
 
     @Bean
-    public ConcurrentKafkaListenerContainerFactory<String, FeedNiceRequestDto>
+    public ConcurrentKafkaListenerContainerFactory<String, FeedNiceClickRequestDto>
                                     feedNiceListenerContainerFactory() {
-        ConcurrentKafkaListenerContainerFactory<String, FeedNiceRequestDto> factory =
+        ConcurrentKafkaListenerContainerFactory<String, FeedNiceClickRequestDto> factory =
                 new ConcurrentKafkaListenerContainerFactory<>();
         factory.setConsumerFactory(feedNiceConsumerFactory());
         factory.setBatchListener(batchAllow);
