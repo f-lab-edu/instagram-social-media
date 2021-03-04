@@ -5,12 +5,14 @@ import com.social.instagram.dto.PostDto;
 import com.social.instagram.dto.request.FeedNiceClickRequestDto;
 import com.social.instagram.dto.request.FeedNiceRequestDto;
 import com.social.instagram.dto.response.PostResponseDto;
+import com.social.instagram.repository.PostNiceRepository;
 import com.social.instagram.repository.PostRepository;
 import com.social.instagram.util.query.FeedNiceQueries;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.util.Streamable;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.kafka.core.KafkaTemplate;
@@ -37,16 +39,22 @@ public class PostService {
     private final KafkaTemplate<String, FeedNiceClickRequestDto> feedNiceKafkaTemplate;
     private final String niceTopic;
     private final JdbcBatchService jdbcBatchService;
+    private final RedisTemplate<Long, Long> feedsNiceRedisTemplate;
+    private final PostNiceRepository postNiceRepository;
 
     public PostService(final PostRepository postRepository, final LoginService loginService,
                        final KafkaTemplate<String, FeedNiceClickRequestDto> feedNiceKafkaTemplate,
                        @Value("${kafka.topic.type.nice}") final String niceTopic,
-                       final JdbcBatchService jdbcBatchService) {
+                       final JdbcBatchService jdbcBatchService,
+                       final RedisTemplate<Long, Long> feedsNiceRedisTemplate,
+                       final PostNiceRepository postNiceRepository) {
         this.postRepository = postRepository;
         this.loginService = loginService;
         this.feedNiceKafkaTemplate = feedNiceKafkaTemplate;
         this.niceTopic = niceTopic;
         this.jdbcBatchService = jdbcBatchService;
+        this.feedsNiceRedisTemplate = feedsNiceRedisTemplate;
+        this.postNiceRepository = postNiceRepository;
     }
 
     @CacheEvict(value = "feedsPerUser", key = "#post.userId")
@@ -68,6 +76,10 @@ public class PostService {
                 .flatMap(Streamable::stream)
                 .map(PostResponseDto::from)
                 .collect(Collectors.toList());
+    }
+
+    public void redisFeedNiceCount(List<PostResponseDto> posts) {
+
     }
 
     public void updateFeedNice(FeedNiceClickRequestDto feedNiceClickRequestDto) {

@@ -24,8 +24,8 @@ public class FeedsNiceRedisConfig {
     }
 
     @Bean
-    public RedisTemplate<Integer, Integer> feedsNiceRedisTemplate() {
-        RedisTemplate<Integer, Integer> feedsNiceRedisTemplate = new RedisTemplate<>();
+    public RedisTemplate<Long, Long> feedsNiceRedisTemplate() {
+        RedisTemplate<Long, Long> feedsNiceRedisTemplate = new RedisTemplate<>();
         feedsNiceRedisTemplate.setConnectionFactory(feedsNiceRedisConnectionFactory());
         feedsNiceRedisTemplate.setKeySerializer(new GenericJackson2JsonRedisSerializer());
         feedsNiceRedisTemplate.setValueSerializer(new GenericJackson2JsonRedisSerializer());

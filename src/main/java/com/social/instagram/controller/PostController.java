@@ -43,6 +43,7 @@ public class PostController {
     public ResponseEntity<List<PostResponseDto>> getPost(@RequestParam String userId,
                 @PageableDefault(sort = "id", direction = Sort.Direction.DESC) Pageable pageable) {
         List<PostResponseDto> posts = postService.getPost(userId, pageable);
+        postService.redisFeedNiceCount(posts);
 
         return ResponseEntity.ok(posts);
     }
