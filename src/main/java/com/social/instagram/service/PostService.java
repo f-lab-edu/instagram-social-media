@@ -3,10 +3,8 @@ package com.social.instagram.service;
 import com.social.instagram.domain.Post;
 import com.social.instagram.dto.PostDto;
 import com.social.instagram.dto.request.FeedNiceClickRequestDto;
-import com.social.instagram.dto.request.FeedNiceRequestDto;
 import com.social.instagram.dto.response.PostResponseDto;
 import com.social.instagram.repository.PostRepository;
-import com.social.instagram.util.query.FeedNiceQueries;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
@@ -15,7 +13,6 @@ import org.springframework.data.util.Streamable;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -36,17 +33,17 @@ public class PostService {
     private final LoginService loginService;
     private final KafkaTemplate<String, FeedNiceClickRequestDto> feedNiceKafkaTemplate;
     private final String niceTopic;
-    private final JdbcBatchService jdbcBatchService;
+    private final FeedBatchService feedBatchService;
 
     public PostService(final PostRepository postRepository, final LoginService loginService,
                        final KafkaTemplate<String, FeedNiceClickRequestDto> feedNiceKafkaTemplate,
                        @Value("${kafka.topic.type.nice}") final String niceTopic,
-                       final JdbcBatchService jdbcBatchService) {
+                       final FeedBatchService feedBatchService) {
         this.postRepository = postRepository;
         this.loginService = loginService;
         this.feedNiceKafkaTemplate = feedNiceKafkaTemplate;
         this.niceTopic = niceTopic;
-        this.jdbcBatchService = jdbcBatchService;
+        this.feedBatchService = feedBatchService;
     }
 
     @CacheEvict(value = "feedsPerUser", key = "#post.userId")
@@ -74,17 +71,10 @@ public class PostService {
         feedNiceKafkaTemplate.send(niceTopic, feedNiceClickRequestDto);
     }
 
-    @Transactional
     @KafkaListener(topics = "${kafka.topic.type.nice}", groupId = "${kafka.topic.type.nice}",
             containerFactory = "feedNiceListenerContainerFactory")
     public void receiveFeedNiceMessage(List<FeedNiceClickRequestDto> feedNiceMessage) {
-        batchFeedNice(feedNiceMessage);
-    }
-
-    public void batchFeedNice(List<FeedNiceClickRequestDto> feedNiceMessage) {
-        jdbcBatchService.batchInsert(FeedNiceQueries.POST_NICE_CLICK_QUERY, feedNiceMessage);
-        jdbcBatchService.batchInsert(FeedNiceQueries.POST_NICE_QUERY,
-                FeedNiceRequestDto.from(FeedNiceClickRequestDto.increaseFeedNiceCount(feedNiceMessage)));
+        feedBatchService.batchFeedNice(feedNiceMessage);
     }
 
     public void deletePost(long id) {
