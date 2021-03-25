@@ -33,17 +33,17 @@ public class PostService {
     private final LoginService loginService;
     private final KafkaTemplate<String, FeedNiceClickRequestDto> feedNiceKafkaTemplate;
     private final String niceTopic;
-    private final FeedBatchService feedBatchService;
+    private final FeedNiceClickAndNiceBatchService feedNiceClickAndNiceBatchService;
 
     public PostService(final PostRepository postRepository, final LoginService loginService,
                        final KafkaTemplate<String, FeedNiceClickRequestDto> feedNiceKafkaTemplate,
                        @Value("${kafka.topic.type.nice}") final String niceTopic,
-                       final FeedBatchService feedBatchService) {
+                       final FeedNiceClickAndNiceBatchService feedNiceClickAndNiceBatchService) {
         this.postRepository = postRepository;
         this.loginService = loginService;
         this.feedNiceKafkaTemplate = feedNiceKafkaTemplate;
         this.niceTopic = niceTopic;
-        this.feedBatchService = feedBatchService;
+        this.feedNiceClickAndNiceBatchService = feedNiceClickAndNiceBatchService;
     }
 
     @CacheEvict(value = "feedsPerUser", key = "#post.userId")
@@ -74,7 +74,7 @@ public class PostService {
     @KafkaListener(topics = "${kafka.topic.type.nice}", groupId = "${kafka.topic.type.nice}",
             containerFactory = "feedNiceListenerContainerFactory")
     public void receiveFeedNiceMessage(List<FeedNiceClickRequestDto> feedNiceMessage) {
-        feedBatchService.batchFeedNice(feedNiceMessage);
+        feedNiceClickAndNiceBatchService.batchFeedNice(feedNiceMessage);
     }
 
     public void deletePost(long id) {

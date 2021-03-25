@@ -11,7 +11,7 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class FeedBatchService {
+public class FeedNiceClickAndNiceBatchService {
 
     private final JdbcBatchService jdbcBatchService;
 
